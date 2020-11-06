@@ -1,0 +1,44 @@
+{
+  "name": "artanizer",
+  "version": "1.0.0",
+  "description": "Artist Community Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poikilos/artanizer.git"
+  },
+  "keywords": [
+    "art",
+    "community",
+    "distributed",
+    "self-hosted",
+    "server",
+    "artistic",
+    "management",
+    "photo",
+    "photography",
+    "artwork",
+    "movie",
+    "video",
+    "student",
+    "educational",
+    "project",
+    "ratings",
+    "user-ratings",
+    "rate",
+    "comment"
+  ],
+  "author": "Jake Gustafson",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/poikilos/artanizer/issues"
+  },
+  "homepage": "https://github.com/poikilos/artanizer#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
