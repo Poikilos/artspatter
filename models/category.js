@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Role = mongoose.model('Category', new mongoose.Schema({
+const Category = mongoose.model('Category', new mongoose.Schema({
+  active: Boolean,
   name: {
     type: String,
     unique: true,
@@ -24,13 +25,6 @@ const Role = mongoose.model('Category', new mongoose.Schema({
 }));
 
 // entries:
-// ("art": "Browse" or "forum": "Discuss"
-// title: "Browse" or "Discuss"
+// ("art", "Browse"), ("forum", "Discuss")
 
 module.exports = Category;
-
-/*
-CategoryID,Integer,Unique
-CategorySectionID,Integer,ID exists in section table
-CategoryParent,Integer,Null or existing entry in this table
-* /

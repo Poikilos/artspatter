@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Role = mongoose.model('Section', new mongoose.Schema({
+const Section = mongoose.model('Section', new mongoose.Schema({
+  active: {
+    type: Boolean,
+    required: True
+  },
   name: {
     type: String,
     unique: true,
@@ -20,7 +24,3 @@ const Role = mongoose.model('Section', new mongoose.Schema({
 // title: "Browse" or "Discuss"
 
 module.exports = Section;
-
-// SectionID,Integer,Unique
-// SectionFunction,String,Unique
-// SectionName,String,Unique

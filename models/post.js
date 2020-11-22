@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // const Role = require('./role');
 
-const User = mongoose.model('Post', new mongoose.Schema({
+const Post = mongoose.model('Post', new mongoose.Schema({
     active: Boolean,
     title: {
         type: String,
@@ -42,30 +42,10 @@ const User = mongoose.model('Post', new mongoose.Schema({
     thumb: String, // relative url to public (thumbnail of art or post)
     full: String, // relative url to image (artwork)
     body: String, // the full post or the image description
+    color: String, // for preview during high-load scenarios or censored content
     note: String // reserved for system use
 }));
 // There are types such as Date, Boolean; put the type in brackets to require an array
 // (*Mongoose v5.10.15: SchemaTypes*, n.d.).
 
 module.exports = Post;
-
-/*
-
-PostActive,Boolean
-PostTitle,String
-PostVisible,Integer
-PostID,Integer
-PostCreatedDate,Date
-PostUserID,Integer
-PostCategory,Integer
-PostParent,Integer
-PostVotes,Integer
-PostSpam,Integer
-PostOffensive,Integer
-PostThumbnailPath,String
-PostFilePath,String
-PostAdult,Boolean
-PostBody,String
-PostSystemNote,String
-
-*/

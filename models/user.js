@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 // const Role = require('./role');
 
 const User = mongoose.model('User', new mongoose.Schema({
+    active: {
+        type: Boolean,
+        required: True
+    },
     n: {
         // Use this instead of built-in _id for clarity.
         type: Number,
@@ -25,6 +29,7 @@ const User = mongoose.model('User', new mongoose.Schema({
         unique: true,
         required: [true, 'You must enter an e-mail address.']
     },
+    confirmed: Boolean,  // e-mail confirmed
     site: String, // for future multi-site support
     code: String,  // for password reset etc
     ph: String, // password hash
@@ -37,6 +42,10 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: [true, 'You must enter a birthday.']
     },
     adult: Boolean,
+    show_marks: {
+        type: [String],
+        required: true
+    },
     role: { // (*Mongoose relationships tutorial*, n.d.)
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Role'
