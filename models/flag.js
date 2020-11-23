@@ -9,7 +9,8 @@ const FlagSchema = new mongoose.Schema({
     t_n: {
       type: Number,
       required: true
-    }
+    },
+    site: String // for future multi-site support
 });
 
 FlagSchema.index({by: 1, t_n: 1}, { unique: true});

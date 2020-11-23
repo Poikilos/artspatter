@@ -21,6 +21,10 @@ const Category = mongoose.model('Category', new mongoose.Schema({
     type: String,
     required: false  // if null, then is a top-level category
   },
+  privacy: { // privacy level
+    type: Number,
+    required: true
+  },
   site: String  // for future multi-site support
 }));
 

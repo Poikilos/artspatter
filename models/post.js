@@ -30,7 +30,11 @@ const Post = mongoose.model('Post', new mongoose.Schema({
         type: String,
         required: true
     },
-    audience: { // owner-specified entry from Flag table
+    audience: { // owner-specified FlagType
+        type: Number,
+        required: true
+    },
+    privacy: { // privacy level
         type: Number,
         required: true
     },

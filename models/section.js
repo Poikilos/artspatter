@@ -16,6 +16,10 @@ const Section = mongoose.model('Section', new mongoose.Schema({
     unique: true,
     required: true
   },
+  privacy: { // privacy level
+    type: Number,
+    required: true
+  },
   site: String // for future multi-site support
 }));
 

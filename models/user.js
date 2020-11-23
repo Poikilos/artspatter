@@ -10,10 +10,11 @@ const User = mongoose.model('User', new mongoose.Schema({
     },
     n: {
         // Use this instead of built-in _id for clarity.
-        type: Number,
+        type: String,  // is a number, unless offsite, then number+"@"+site
         unique: true,
         required: true
     },
+    site: String, // for future multi-site support
     name: { // no spaces, used for the profile URL (subdirectory)
         type: String,
         unique: true,
@@ -30,7 +31,6 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: [true, 'You must enter an e-mail address.']
     },
     confirmed: Boolean,  // e-mail confirmed
-    site: String, // for future multi-site support
     code: String,  // for password reset etc
     ph: String, // password hash
     phM: Date, // password hash modified date
@@ -49,6 +49,11 @@ const User = mongoose.model('User', new mongoose.Schema({
     role: { // (*Mongoose relationships tutorial*, n.d.)
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Role'
+    },
+    privacy_levels: [String], // fields by privacy (index is level, content is '+'-separated)
+    privacy: { // profile privacy level
+        type: Number,
+        required: true
     },
     parent: Number, // reserved for future use (parent-managed account)
     note: String  // reserved for system use

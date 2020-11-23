@@ -19,7 +19,11 @@ const VoteType = mongoose.model('VoteType', new mongoose.Schema({
     type: String,
     unique: true,
     required: true
-  }
+  },
+  privacy: { // privacy level
+    type: Number,
+    required: true
+  },
 }));
 
 module.exports = VoteType;

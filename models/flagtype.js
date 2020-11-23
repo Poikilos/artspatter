@@ -6,6 +6,7 @@ const FlagType = mongoose.model('FlagType', new mongoose.Schema({
     type: Boolean,
     required: True
   },
+  site: String, // for future multi-site support  
   n: {
     type: Number,
     unique: true,
@@ -19,7 +20,11 @@ const FlagType = mongoose.model('FlagType', new mongoose.Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  privacy: { // privacy level
+    type: Number,
+    required: true
+  },
 }));
 
 module.exports = FlagType;
