@@ -8,54 +8,59 @@ const User = mongoose.model('User', new mongoose.Schema({
         type: Boolean,
         required: True
     },
-    n: {
-        // Use this instead of built-in _id for clarity.
-        type: String,  // is a number, unless offsite, then number+"@"+site
-        unique: true,
-        required: true
+    uid: {  // TODO: (future) contains @ if cross-site
+        // user or cross-site user
+        type: String,
+        required: true,
+        unique: true
     },
-    site: String, // for future multi-site support
-    name: { // no spaces, used for the profile URL (subdirectory)
+    name: { // profile URL (subdirectory)
+        // TODO: (future) contains @ if cross-site
         type: String,
         unique: true,
         required: [true, 'You must enter a unique username.']
     },
+    friends: [String], // uid (denormalized here for speed)
     display: {
+        // TODO: (future) contains @ if cross-site
         type: String,
         unique: true,
         required: [true, 'You must enter a unique display name.']
     },
     email: {
+        // TODO: (future) contains extra @ if cross-site (determine if so from username)
         type: String,
         unique: true,
-        required: [true, 'You must enter an e-mail address.']
+        sparse: true // allow more than one null (won't work with "required")
+        // required: [true, 'You must enter an e-mail address.']
     },
     confirmed: Boolean,  // e-mail confirmed
     code: String,  // for password reset etc
     ph: String, // password hash
     phM: Date, // password hash modified date
     m: Date, // modified date
-    previousPHs: [String], // previous password hashes
+    previousPHs: [String], // previous password hashes (denormalized for speed)
     avatarPath: String,
     birthday: {
         type: Date,
         required: [true, 'You must enter a birthday.']
     },
     adult: Boolean,
-    show_marks: {
+    show_flags: { // which flags (denormalized for speed)
         type: [String],
         required: true
     },
-    role: { // (*Mongoose relationships tutorial*, n.d.)
+    role: {  // TODO: (future) do not propopate this to/from cross-site users
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Role'
+        // (*Mongoose relationships tutorial*, n.d.)
     },
     privacy_levels: [String], // fields by privacy (index is level, content is '+'-separated)
     privacy: { // profile privacy level
         type: Number,
         required: true
     },
-    parent: Number, // reserved for future use (parent-managed account)
+    parent: String, // reserved for future use (parent uid for parent-managed account)
     note: String  // reserved for system use
 }));
 // There are types such as Date, Boolean; put the type in brackets to require an array

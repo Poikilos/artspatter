@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Category = mongoose.model('Category', new mongoose.Schema({
   active: Boolean,
-  name: {
+  cid: { // TODO: (future) contains "@" if cross-site
     type: String,
     unique: true,
     required: true
@@ -13,19 +13,22 @@ const Category = mongoose.model('Category', new mongoose.Schema({
     unique: true,
     required: true
   },
-  section_name: {
+  sid: {
     type: String,
     required: false  // if null, then hidden
   },
-  parent_name: {
+  parent: {
     type: String,
-    required: false  // if null, then is a top-level category
+    required: false  // if top-level category then null; else cid
   },
-  privacy: { // privacy level
-    type: Number,
+  uid: {
+    type: String,
     required: true
   },
-  site: String  // for future multi-site support
+  pln: { // privacy level
+    type: Number,
+    required: true
+  }
 }));
 
 // entries:

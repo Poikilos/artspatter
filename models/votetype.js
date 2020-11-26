@@ -6,12 +6,12 @@ const VoteType = mongoose.model('VoteType', new mongoose.Schema({
     type: Boolean,
     required: True
   },
-  n: {
+  vtn: {
     type: Number,
     unique: true,
     required: true
   },
-  value: {
+  v: { // value by which it affects the "Like" score
     type: Number,
     required: true
   },
@@ -20,7 +20,7 @@ const VoteType = mongoose.model('VoteType', new mongoose.Schema({
     unique: true,
     required: true
   },
-  privacy: { // privacy level
+  pln: { // privacylevel.pln
     type: Number,
     required: true
   },

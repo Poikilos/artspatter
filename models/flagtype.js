@@ -6,8 +6,7 @@ const FlagType = mongoose.model('FlagType', new mongoose.Schema({
     type: Boolean,
     required: True
   },
-  site: String, // for future multi-site support  
-  n: {
+  ftn: {
     type: Number,
     unique: true,
     required: true
@@ -21,7 +20,7 @@ const FlagType = mongoose.model('FlagType', new mongoose.Schema({
     type: String,
     required: true
   },
-  privacy: { // privacy level
+  pln: { // privacy level
     type: Number,
     required: true
   },
@@ -30,6 +29,6 @@ const FlagType = mongoose.model('FlagType', new mongoose.Schema({
 module.exports = FlagType;
 
 // entries:
-// (0, "general audiences", "This is appropriate for anyone.")
-// (1, "teen", "This is only appropriate for teens or older (may be shocking, but not provocative).")
-// (2, "adult", "This is only appropriate for mature audiences.")
+// (0, "General Audiences", "This is appropriate for anyone.")
+// (1, "Teen", "This is only appropriate for teens or older (may be shocking).")
+// (2, "Mature", "This is only appropriate for mature audiences (may be misleading or provocative).")

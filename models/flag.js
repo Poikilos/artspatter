@@ -2,18 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FlagSchema = new mongoose.Schema({
-    by: { // what user number (n or n+"@"+site)
-      type: String,
-      required: true
-    },
-    t_n: {
-      type: Number,
-      required: true
-    },
-    site: String // for future multi-site support
+  fid: { // TODO: (future) contains @ if cross-site
+    type: String,
+    required: true
+  },
+  uid: { // user.uid
+    type: String,
+    required: true
+  },
+  ftn: { // flagtype.ftn
+    type: Number,
+    required: true
+  }
 });
 
-FlagSchema.index({by: 1, t_n: 1}, { unique: true});
+FlagSchema.index({uid: 1, fid: 1}, { unique: true});
 // ^ compound index (user can only choose one flag)
 
 const Flag = mongoose.model('Flag', FlagSchema);

@@ -6,7 +6,8 @@ const Section = mongoose.model('Section', new mongoose.Schema({
     type: Boolean,
     required: True
   },
-  name: {
+  sid: {
+    // TODO: (future) contains "@" if cross-site
     type: String,
     unique: true,
     required: true
@@ -19,8 +20,7 @@ const Section = mongoose.model('Section', new mongoose.Schema({
   privacy: { // privacy level
     type: Number,
     required: true
-  },
-  site: String // for future multi-site support
+  }
 }));
 
 // entries:

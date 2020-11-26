@@ -5,17 +5,16 @@ const Schema = mongoose.Schema;
 
 const Post = mongoose.model('Post', new mongoose.Schema({
     active: Boolean,
-    title: {
+    pid: {
+        type: String, // TODO: (future) contains @ if cross-site
+        required: true
+    },
+    uid: {  // user.uid
         type: String,
         required: true
     },
-    publish: {
-        type: Number,  // 0 or 1, other values are for future use
-        required: true
-    },
-    site: String, // for future multi-site support  
-    userN: {  // (n or n+"@"+site)
-        type: Number,
+    title: {
+        type: String,
         required: true
     },
     /*
@@ -25,20 +24,22 @@ const Post = mongoose.model('Post', new mongoose.Schema({
     }
     */
     m: Date, // modified date
-    mBy: String, // last change by what user number (n or n+"@"+site)
-    category: {
+    mBy: String, // last change by what user number
+    // TODO: (future) ^ mBy should contain @ if cross-site
+    cid: { // category.cid
         type: String,
         required: true
     },
-    audience: { // owner-specified FlagType
+    ftn: { // This is the owner's self-vote for the content flag (flagtype.ftn)
         type: Number,
         required: true
     },
-    privacy: { // privacy level
+    pln: { // privacylevel.pln
         type: Number,
         required: true
     },
-    parent: String, // if null, it is a top-tier post (not a reply)
+    parent: String, // if top-tier post then null; if reply then pid of parent
+    // TODO: (future) ^ use parent for making polls (upvote a special one-line subpost)
     likes: Number, // cache (of Vote table "like" entries)
     spams: Number, // cache (of Vote table "spam" entries)
     offends: Number, // cache (of Vote table "offensive" entries)
