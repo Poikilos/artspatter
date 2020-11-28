@@ -1,22 +1,21 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const FlagSchema = new mongoose.Schema({
   fid: { // TODO: (future) contains @ if cross-site
     type: String,
-    required: true
+    required: true,
   },
   uid: { // user.uid
     type: String,
-    required: true
+    required: true,
   },
   ftn: { // flagtype.ftn
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
-FlagSchema.index({uid: 1, fid: 1}, { unique: true});
+FlagSchema.index({ uid: 1, fid: 1 }, { unique: true });
 // ^ compound index (user can only choose one flag)
 
 const Flag = mongoose.model('Flag', FlagSchema);

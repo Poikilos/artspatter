@@ -1,30 +1,26 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const Section = mongoose.model('Section', new mongoose.Schema({
-  active: {
-    type: Boolean,
-    required: True
-  },
+  active: Boolean,
   sid: {
     // TODO: (future) contains "@" if cross-site
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   caption: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
-  privacy: { // privacy level
+  pln: { // privacy level
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 }));
 
 // entries:
-// ("art": "Browse" or "forum": "Discuss"
-// title: "Browse" or "Discuss"
+// ("art", "Browse", 7),
+// ("forum", "Discuss", 7)
 
 module.exports = Section;

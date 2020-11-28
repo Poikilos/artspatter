@@ -1,37 +1,41 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const Category = mongoose.model('Category', new mongoose.Schema({
   active: Boolean,
   cid: { // TODO: (future) contains "@" if cross-site
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   caption: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   sid: {
     type: String,
-    required: false  // if null, then hidden
+    required: false, // if null, then hidden
+  },
+  display: {
+    type: String,
+    required: true,
   },
   parent: {
     type: String,
-    required: false  // if top-level category then null; else cid
+    required: false, // if top-level category then null; else cid
   },
   uid: {
     type: String,
-    required: true
+    required: true,
   },
   pln: { // privacy level
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 }));
 
 // entries:
-// ("art", "Browse"), ("forum", "Discuss")
+// ("art", "Browse", "art" "gallery", null, "0", 7),
+// ("forum", "Discuss", "forum" "forum", null, "0", 7)
 
 module.exports = Category;

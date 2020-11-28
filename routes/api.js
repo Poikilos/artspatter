@@ -15,7 +15,8 @@ router.post('/todos', (req, res, next) => {
     Todo.create(req.body)
       .then(data => res.json(data))
       .catch(next)
-  }else {
+  }
+  else {
     res.json({
       error: "The input field is empty"
     })

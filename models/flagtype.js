@@ -1,28 +1,27 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const FlagType = mongoose.model('FlagType', new mongoose.Schema({
   active: {
     type: Boolean,
-    required: True
+    required: true,
   },
   ftn: {
     type: Number,
     unique: true,
-    required: true
+    required: true,
   },
   caption: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   pln: { // privacy level
     type: Number,
-    required: true
+    required: true,
   },
 }));
 
