@@ -17,7 +17,7 @@ const VoteSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  why: String, // TODO: (future) The value may be "content" if user dislikes an event but not the reporter
+  why: String, // TODO: (future) "c" for content not reporting quality
   v: { // value (-1 or +1 to upvote or downvote the characteristic)
     type: Number,
     required: true,

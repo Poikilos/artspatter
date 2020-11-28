@@ -49,7 +49,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     type: [String],
     required: true,
   },
-  role: {  // TODO: (future) do not propopate this to/from cross-site users
+  role: { // TODO: (future) do not propopate this to/from cross-site users
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
     // (*Mongoose relationships tutorial*, n.d.)

@@ -41,7 +41,15 @@ def is_str(v):
     return True
 
 
-def run_command(command, outs):
+def run_command(command, outs, subject=None):
+    """
+    Sequential arguments:
+    command -- the command to run
+    outs -- an output stream with encoding="utf-8", otherwise None
+    
+    Keyword arguments:
+    subject -- a file to note in the error (prefix the line)
+    """
     cmd_parts = command
     if is_str(command):
         # Make it into a list if it is not.
@@ -49,11 +57,14 @@ def run_command(command, outs):
     if not os.path.isfile(cmd_parts[0]):
         cmd_parts[0] = which(cmd_parts[0])
     # print("Running {}".format(cmd_parts))
-    process = subprocess.Popen(cmd_parts, stdout=subprocess.PIPE)
+    process = subprocess.Popen(cmd_parts, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
     # , encoding='utf8')  # (Edejer, 2020)
     CRLFWarning = False
     while True:
         output = process.stdout.readline()
+        if output == '':
+            output = process.stderr.readline()
         # if output == '' and process.poll() is not None:
         # break
         
@@ -134,10 +145,14 @@ def main():
     # os.remove(err_path)
     with open(err_path, 'w', encoding="utf8") as outs:
         check_quality_in(os.path.realpath("."), outs)
-        print("[quality.py main]"
-              " check_quality_in reduced repetive errors:")
+        errors = []
         for one, v in once.items():
             if v is not False:
+                errors.append(v)
+        if len(errors) > 0:
+            print("[quality.py main]"
+                  " check_quality_in reduced repetive errors:")
+            for v in errors:
                 print(v)
 
 

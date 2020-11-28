@@ -8,7 +8,7 @@ const Post = mongoose.model('Post', new mongoose.Schema({
     type: String, // TODO: (future) contains @ if cross-site
     required: true,
   },
-  uid: {  // user.uid
+  uid: { // user.uid
     type: String,
     required: true,
   },
