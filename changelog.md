@@ -1,5 +1,14 @@
 # Changelog
 
+
+## [git] - 2020-11-28
+### Added
+- JWT Authentication
+
+### Changed
+- Rename index.js to server.js.
+
+
 ## [git] - 2020-11-27
 ### Added
 - eslint
