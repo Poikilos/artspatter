@@ -211,16 +211,16 @@ def main():
                 if v is not False:
                     errors.append(v)
             if len(errors) > 0:
-                print("[quality.py main]"
+                print("* [quality.py main]"
                       " check_quality_in reduced repetive errors:")
                 for v in errors:
-                    print(v)
+                    print("- '{}'".format(v))
             neverLen = len(never.keys())
             if neverLen > 0:
-                print("[quality.py main] ignoring the following:")
+                print("* [quality.py main] ignoring the following:")
                 for line, count in never.items():
                     if count > 0:
-                        print("{} instances of: {}".format(count, line))
+                        print("- {} instances of: '{} ".format(count, line))
         except EnvironmentError:
             exit(1)
 
