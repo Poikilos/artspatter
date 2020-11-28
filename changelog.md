@@ -1,12 +1,26 @@
 # Changelog
 
+## [git] - 2020-11-27
+### Added
+- eslint
+
+### Changed
+- Rename jsx files to use jsx extension (helps with linting).
+- Switch to airbnb coding style.
+
+### Fixed
+- Remove duplicate dependency in react (resolves issue #13).
+- (quality.py) Properly handle both stdout and stderr.
+
+### Removed
+- jshint
 
 ## [git] - 2020-11-25
 ### Added
 - quality.py
 - Add placeholders for per-category and per-role priveleges to roles:
-  Allow CRUD granularly (C, R, U, or D) for posts in given categories
-  and users in given roles.
+  Allow CRUD granularly (C, R, U, or D separately) for posts in given
+  categories and users in given roles.
 
 ### Changed
 - (quality.py run_command) detect string or array, `decode()` bytestring

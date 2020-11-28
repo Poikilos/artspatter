@@ -30,4 +30,5 @@ module.exports = FlagType;
 // entries:
 // (0, "General Audiences", "This is appropriate for anyone.")
 // (1, "Teen", "This is only appropriate for teens or older (may be shocking).")
-// (2, "Mature", "This is only appropriate for mature audiences (may be misleading or provocative).")
+// (2, "Mature", "This is only appropriate for mature audiences"
+//  +" (may be misleading or provocative).")
