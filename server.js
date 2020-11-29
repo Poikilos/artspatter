@@ -17,7 +17,9 @@ app.use(cors(corsOptions));
 const port = process.env.PORT || 5000;
 
 const db = require('./models');
-const dbConfig = require('./app/config/db.config');
+const Role = db.role;
+
+const dbConfig = require('./config/db.config'); // automatically imported
 
 // connect to the database
 db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -51,8 +53,8 @@ app.get('/', (req, res) => {
 });
 
 // routes
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

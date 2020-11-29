@@ -11,13 +11,13 @@ but are being considered for future versions.
 ## Installation
 (These steps are only necessary for future editions--These pieces are
 included in the workspace.)
-- Create your app/config/auth.config.js similar to:
+- Create your config/auth.config.js similar to:
 ```JavaScript
 module.exports = {
     secret: 'this-is-no-secret', // change this in your instance.
 };
 ```
-- Create your app/config/db.config.js similar to:
+- Create your config/db.config.js similar to:
 ```JavaScript
 module.exports = {
   HOST: 'localhost', // 127.0.0.1

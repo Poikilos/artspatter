@@ -104,6 +104,6 @@ dist
 .tern-port
 *.dia~
 err.txt
-app/config/auth.config.js
-app/config/db.config.js
+config/auth.config.js
+config/db.config.js
 *.js
