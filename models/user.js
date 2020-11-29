@@ -13,14 +13,15 @@ const User = mongoose.model('User', new mongoose.Schema({
     required: true,
     unique: true,
   },
-  name: { // profile URL (subdirectory)
+  name: { // TODO: (future) profile URL (subdirectory)
     // TODO: (future) contains @ if cross-site
     type: String,
     unique: true,
     required: [true, 'You must enter a unique username.'],
   },
-  friends: [String], // uid (denormalized here for speed)
-  display: {
+  friends: [String], // uid of each friend
+  friends_pending: [String], // uid of each pending friend request
+  display: { // display name
     // TODO: (future) contains @ if cross-site
     type: String,
     unique: true,
@@ -38,25 +39,30 @@ const User = mongoose.model('User', new mongoose.Schema({
   ph: String, // password hash
   phM: Date, // password hash modified date
   m: Date, // modified date
-  previousPHs: [String], // previous password hashes (denormalized for speed)
+  previousPHs: [String], // previous password hashes
   avatarPath: String,
   birthday: {
     type: Date,
     required: [true, 'You must enter a birthday.'],
   },
-  adult: Boolean,
-  show_flags: { // which flags (denormalized for speed)
-    type: [String],
-    required: true,
-  },
-  roles: { // TODO: (future) do not propopate this to/from cross-site users
-    type: [String],
-  },
-  privacy_levels: [String], // fields by privacy (index is level, content is '+'-separated)
+  show_flags: [ // which flags user can see
+    {
+      type: String,
+      required: true,
+    }
+  ],
+  roles: [ // TODO: (future) add setting: honor cross-site roles (none for now)
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Role',
+    }
+  ],
+  privacy_levels: [String], // show my fields (index is level, content is '+'-separated)
   privacy: { // profile privacy level
     type: Number,
     required: true,
   },
+  delDate: Date, // if privacy=0 for a certain span from here, delete
   parent: String, // reserved for future use (parent uid for parent-managed account)
   note: String, // reserved for system use
 }));

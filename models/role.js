@@ -19,7 +19,7 @@ const Role = mongoose.model('Role', new mongoose.Schema({
 
 // entries:
 // (true, "admin")
-// (true, "mod")
+// (true, "moderator")
 // (true, "user")
 
 module.exports = Role;
