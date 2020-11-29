@@ -27,6 +27,14 @@ module.exports = {
 ```
 
 
+## Development
+> Don’t change tailwind.output.css since your changes will be wiped out 
+> the next time you start up the dev server or run a production build. 
+> Instead, put changes in src/tailwind.css and restart the server/re-run 
+> the build.
+
+-<https://daveceddia.com/tailwind-create-react-app/>
+
 ## Citation Style
 
 Some of the references are cited in the code as opposed to this page.
@@ -37,7 +45,8 @@ if converted to another format such as HTML or PDF).
 
 
 ## References
-- BezKoder. (2019, October 19). Node.js + MongoDB: User authentication & authorization with JWT. BezKoder. https://bezkoder.com/node-js-mongodb-auth-jwt/
+- BezKoder. (2019a, October 19). Node.js + MongoDB: User authentication & authorization with JWT. *BezKoder*. https://bezkoder.com/node-js-mongodb-auth-jwt/
+- BezKoder. (2019b, October 19). React JWT authentication (Without Redux) example. *BezKoder*. https://bezkoder.com/react-jwt-auth/
 - Drkušić, E. (2016, March 17). *Denormalization: When, why, and how*. Vertabelo Data Modeler. https://vertabelo.com/blog/denormalization-when-why-and-how/
 - *Mongoose relationships tutorial*. (n.d.). Vegibit. https://vegibit.com/mongoose-relationships-tutorial/
 - *Mongoose v5.10.15: SchemaTypes*. (n.d.). Mongoose. https://mongoosejs.com/docs/schematypes.html
