@@ -10,7 +10,7 @@ const app = express();
 
 var corsOptions = {
   origin: "http://localhost:3000",
-} // (BezKoder, 2019)
+} // (BezKoder, 2019a)
 
 app.use(cors(corsOptions));
 
@@ -24,7 +24,7 @@ const dbConfig = require('./config/db.config'); // automatically imported
 // connect to the database
 db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
   useNewUrlParser: true,
-  useUnifiedTopology: true, // (BezKoder, 2019)
+  useUnifiedTopology: true, // (BezKoder, 2019a)
 })
 .then(() => {
   console.log('MongoDB is successfully connected.');
@@ -38,7 +38,7 @@ db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-// as per BezKoder (2019).
+// as per BezKoder (2019a).
 app.use(bodyParser.urlencoded({ extended: true }));
 /* app.use('/api', routes);
 
@@ -93,4 +93,4 @@ function initial() {
       });
     }
   });
-} // (BezKoder, 2019)
+} // (BezKoder, 2019a)

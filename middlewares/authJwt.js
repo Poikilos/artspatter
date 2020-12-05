@@ -89,4 +89,4 @@ const authJwt = {
 };
 module.exports = authJwt;
 
-// (BezKoder, 2019)
+// (BezKoder, 2019a)

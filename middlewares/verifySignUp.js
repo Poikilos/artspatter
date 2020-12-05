@@ -58,4 +58,4 @@ const verifySignUp = {
 
 module.exports = verifySignUp;
 
-// (BezKoder, 2019)
+// (BezKoder, 2019a)

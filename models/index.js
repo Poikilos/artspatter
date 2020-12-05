@@ -12,4 +12,4 @@ db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
 
-// (BezKoder, 2019)
+// (BezKoder, 2019a)

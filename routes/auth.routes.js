@@ -22,4 +22,4 @@ module.exports = function(app) {
   app.post("/api/auth/signin", controller.signin);
 };
 
-// (BezKoder, 2019)
+// (BezKoder, 2019a)
