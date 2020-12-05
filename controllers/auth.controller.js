@@ -43,7 +43,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ username: "user" }, (err, role) => {
+      Role.findOne({ rid: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;

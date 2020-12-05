@@ -107,3 +107,4 @@ dist
 err.txt
 config/auth.config.js
 config/db.config.js
+*.lnk

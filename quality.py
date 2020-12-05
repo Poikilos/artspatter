@@ -23,7 +23,7 @@ def which(program):
     def is_exe(fpath):
         return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
-    fpath, fname = os.path.split(program)
+    fpath = os.path.split(program)[0]
     if fpath:
         if is_exe(program):
             return program
@@ -38,11 +38,7 @@ def which(program):
 
 
 def is_str(v):
-    try:
-        vLower = v.lower()
-    except AttributeError:
-        return False
-    return True
+    return hasattr(v, "lower")
 
 
 def run_command(command, outs, subject=None):
@@ -65,7 +61,7 @@ def run_command(command, outs, subject=None):
     process = subprocess.Popen(cmd_parts, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     # , encoding='utf8')  # (Edejer, 2020)
-    CRLFWarning = False
+    # CRLFWarning = False
     more = []
     ended = False
     issue = 0
@@ -179,15 +175,16 @@ def check_quality(path, outs):
         raise ValueError("{} is not a file.".format(path))
     name = os.path.split(path)[-1]
     nameL = name.lower()
-    
+    ret = True
     if nameL.endswith(".js") or nameL.endswith(".jsx"):
         # print()
         # print("# * checking {}".format(path))
         ret = run_command(shlex.split(lint_cmd) + [path], outs)
-    return True
+    return ret
 
 
 def check_quality_in(path, outs):
+    ret = True
     for sub in os.listdir(path):
         if sub.startswith("."):
             continue
@@ -198,6 +195,7 @@ def check_quality_in(path, outs):
             ret = check_quality_in(subPath, outs)
         else:
             ret = check_quality(subPath, outs)
+    return ret
 
 
 def main():
@@ -207,7 +205,7 @@ def main():
         try:
             ret = check_quality_in(os.path.realpath("."), outs)
             errors = []
-            for one, v in once.items():
+            for v in once.values():
                 if v is not False:
                     errors.append(v)
             if len(errors) > 0:

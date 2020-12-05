@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const dbConfig = require('./config/db.config');
+// ^  // automatically imported
 // const mongoose = require('mongoose');
 const path = require('path');
 // const routes = require('./routes/api');
@@ -9,12 +11,12 @@ require('dotenv').config();
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
-} // (BezKoder, 2019a)
+  origin: 'http://localhost:8081',
+}; // (BezKoder, 2019a)
 
 app.use(cors(corsOptions));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
@@ -25,7 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require('./models');
 const Role = db.role;
 
-const dbConfig = require('./config/db.config'); // automatically imported
 
 // connect to the database
 db.mongoose
@@ -38,13 +39,13 @@ db.mongoose
     initial();
   })
   .catch((err) => {
-    console.error("Connection error", err);
+    console.error('Connection error', err);
     process.exit(1);
   });
 
 
 app.get('/', (req, res) => {
-  res.json({ message: "Welcome to an unnamed ArtSpatter instance." });
+  res.json({ message: 'Welcome to an unnamed ArtSpatter instance.' });
 });
 
 // routes
@@ -59,32 +60,32 @@ function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
-        rid: "user"
+        rid: 'user'
       }).save(err => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
-        console.log("added 'user' to roles collection");
+        console.log('added "user" to roles collection');
       });
 
       new Role({
         rid: "moderator"
       }).save(err => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
 
-        console.log("added 'moderator' to roles collection");
+        console.log('added "moderator" to roles collection');
       });
 
       new Role({
-        rid: "admin"
+        rid: 'admin'
       }).save(err => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
 
-        console.log("added 'admin' to roles collection");
+        console.log('added "admin" to roles collection');
       });
     }
   });
