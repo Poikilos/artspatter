@@ -16,37 +16,32 @@ app.use(cors(corsOptions));
 
 const port = process.env.PORT || 5000;
 
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+// as per BezKoder (2019a).
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const db = require('./models');
 const Role = db.role;
 
 const dbConfig = require('./config/db.config'); // automatically imported
 
 // connect to the database
-db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true, // (BezKoder, 2019a)
-})
-.then(() => {
-  console.log('MongoDB is successfully connected.');
-  initial();
-})
-.catch((err) => {
-  console.log(err);
-  process.exit(1);
-});
+db.mongoose
+  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true, // (BezKoder, 2019a)
+  })
+  .then(() => {
+    console.log('MongoDB is successfully connected.');
+    initial();
+  })
+  .catch((err) => {
+    console.error("Connection error", err);
+    process.exit(1);
+  });
 
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-// as per BezKoder (2019a).
-app.use(bodyParser.urlencoded({ extended: true }));
-/* app.use('/api', routes);
-
-app.use((err, req, res, next) => {
-  console.log(err);
-  next();
-});
-*/
 
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to an unnamed ArtSpatter instance." });

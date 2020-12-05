@@ -38,7 +38,7 @@ isAdmin = (req, res, next) => {
         }
 
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
+          if (roles[i].rid === "admin") {
             next();
             return;
           }
@@ -69,7 +69,7 @@ isModerator = (req, res, next) => {
         }
 
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "moderator") {
+          if (roles[i].rid === "moderator") {
             next();
             return;
           }

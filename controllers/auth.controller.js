@@ -8,6 +8,7 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
+    // uid: , // TODO: generate uid
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
@@ -22,7 +23,7 @@ exports.signup = (req, res) => {
     if (req.body.roles) {
       Role.find(
         {
-          name: { $in: req.body.roles }
+          rid: { $in: req.body.roles }
         },
         (err, roles) => {
           if (err) {
@@ -42,7 +43,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+      Role.findOne({ username: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
@@ -96,7 +97,7 @@ exports.signin = (req, res) => {
       var authorities = [];
 
       for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+        authorities.push("ROLE_" + user.roles[i].rid.toUpperCase());
       }
       res.status(200).send({
         id: user._id,
