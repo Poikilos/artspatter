@@ -1,7 +1,7 @@
 @echo off
 REM Content:
 node _drop-votes
-node _drop-posts
+node _drop-POSTs
 node _drop-flags
 
 REM Structure & Users:
