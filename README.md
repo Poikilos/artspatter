@@ -28,12 +28,8 @@ module.exports = {
 
 
 ## Development
-> Don’t change tailwind.output.css since your changes will be wiped out 
-> the next time you start up the dev server or run a production build. 
-> Instead, put changes in src/tailwind.css and restart the server/re-run 
-> the build.
+For how to maintain the code, see contributing.md.
 
--<https://daveceddia.com/tailwind-create-react-app/>
 
 ## Citation Style
 

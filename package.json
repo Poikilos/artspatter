@@ -48,7 +48,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.2.1",
-    "mongoose": "^5.11.4"
+    "mongoose": "^5.11.4",
+    "mongoose-sequence": "^5.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

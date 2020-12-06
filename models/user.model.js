@@ -1,30 +1,82 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
+// See https://www.npmjs.com/package/mongoose-sequence
 
 // const Role = require('./role');
 
-const User = mongoose.model(
-  'User',
-  new mongoose.Schema({
-    active: {
-      type: Boolean,
-      required: true,
-    },
-    uid: { // TODO: (future) contains @ if cross-site
-      // user or cross-site user
+const UserSchema = new mongoose.Schema({
+  active: {
+    type: Boolean,
+    required: true,
+  },
+  uid: { // TODO: (future) contains @ if cross-site
+    // user or cross-site user
+    type: String,
+    // TODO: (future) required: true,
+    // TODO: (future) unique: true,
+  },
+  // TODO: (future) profile URL (subdirectory)
+  username: {
+    // TODO: (future) contains @ if cross-site
+    type: String,
+    unique: true,
+    required: [true, 'You must enter a unique username.'],
+  },
+  email: {
+    // TODO: (future) contains extra @ if cross-site (determine if so from username)
+    type: String,
+    unique: true,
+    sparse: true, // allow more than one null (won't work with "required")
+    // required: [true, 'You must enter an e-mail address.']
+  },
+  confirmed: Boolean, // e-mail confirmed
+  password: String, // password hash
+  // TODO: (future) add setting: honor cross-site roles (none for now)
+  roles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Role',
+    }
+  ],
+  code: String, // for password reset etc
+  phM: Date, // password hash modified date
+  m: Date, // modified date
+  previousPHs: [String], // previous password hashes
+  avatarPath: String,
+  birthday: {
+    type: Date,
+    // TODO:  required: [true, 'You must enter a birthday.'],
+  },
+  show_ftns: [ // flag type numbers (ftns) the user can see
+    {
       type: String,
       required: true,
-      unique: true,
-    },
-    username: String,
-    email: String,
-    password: String,
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role',
-      }
-    ],
-  })
+    }
+  ],
+  privacy_levels: [String], // show my fields (index is level, content is '+'-separated)
+  pln: { // profile privacy level
+    type: Number,
+    required: true,
+  },
+  delDate: Date, // if privacy=0 for a certain span from here, delete
+  friends: [String], // uid of each friend
+  friends_pending: [String], // uid of each pending friend request
+  display: { // display name
+    // TODO: (future) contains @ if cross-site
+    type: String,
+    unique: true,
+    required: [true, 'You must enter a unique display name.'],
+  },
+  parent: String, // reserved for future use (parent uid for parent-managed account)
+  note: String, // reserved for system use
+});
+
+UserSchema.plugin(AutoIncrement, {inc_field: 'id'});
+
+const User = mongoose.model(
+  'User',
+  UserSchema
 );
 // There are types such as Date, Boolean; put the type in brackets to require an array
 // (*Mongoose v5.10.15: SchemaTypes*, n.d.).
