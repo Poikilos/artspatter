@@ -5,7 +5,16 @@ const mongoose = require('mongoose');
 const User = mongoose.model(
   'User',
   new mongoose.Schema({
-    // TODO: uid: String,
+    active: {
+      type: Boolean,
+      required: true,
+    },
+    uid: { // TODO: (future) contains @ if cross-site
+      // user or cross-site user
+      type: String,
+      required: true,
+      unique: true,
+    },
     username: String,
     email: String,
     password: String,
