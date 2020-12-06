@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Section = mongoose.model('Section', new mongoose.Schema({
+const SectionSchema = new mongoose.Schema({
   active: Boolean,
   sid: {
     // TODO: (future) contains "@" if cross-site
@@ -17,10 +17,11 @@ const Section = mongoose.model('Section', new mongoose.Schema({
     type: Number,
     required: true,
   },
-}));
+});
 
-// entries:
-// ("art", "Browse", 7),
-// ("forum", "Discuss", 7)
+const Section = mongoose.model(
+  'Section',
+  SectionSchema,
+);
 
 module.exports = Section;

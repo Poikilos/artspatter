@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dbConfig = require('./config/db.config');
 
 const db = require('./models');
-const User = db.user;
+const VoteType = db.votetype;
 
 // connect to the database
 mongoose
@@ -13,12 +13,12 @@ mongoose
   })
   .then(() => {
     console.log('MongoDB is successfully connected.');
-    User.collection.drop(function(err) {
-      console.log('User collection dropped.');
+    VoteType.collection.drop(function(err) {
+      console.log('VoteType collection dropped.');
       process.exit(0);
     });
 
-  })
+})
   .catch((err) => {
     console.error('Connection error', err);
     process.exit(1);

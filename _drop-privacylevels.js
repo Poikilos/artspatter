@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dbConfig = require('./config/db.config');
 
 const db = require('./models');
-const User = db.user;
+const PrivacyLevel = db.privacylevel;
 
 // connect to the database
 mongoose
@@ -13,8 +13,8 @@ mongoose
   })
   .then(() => {
     console.log('MongoDB is successfully connected.');
-    User.collection.drop(function(err) {
-      console.log('User collection dropped.');
+    PrivacyLevel.collection.drop(function(err) {
+      console.log('PrivacyLevel collection dropped.');
       process.exit(0);
     });
 

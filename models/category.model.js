@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Category = mongoose.model('Category', new mongoose.Schema({
+const CategorySchema = new mongoose.Schema({
   active: Boolean,
   cid: { // TODO: (future) contains "@" if cross-site
     type: String,
@@ -32,10 +32,11 @@ const Category = mongoose.model('Category', new mongoose.Schema({
     type: Number,
     required: true,
   },
-}));
+});
 
-// entries:
-// ("art", "Browse", "art" "gallery", null, "0", 7),
-// ("forum", "Discuss", "forum" "forum", null, "0", 7)
+const Category = mongoose.model(
+  'Category',
+  CategorySchema,
+);
 
 module.exports = Category;

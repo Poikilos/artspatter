@@ -5,6 +5,13 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 // const Role = require('./role');
 
+class UserPrivacy {
+  constructor() {
+    this.email = 1;
+    this.year = 7;
+  }
+}
+
 const UserSchema = new mongoose.Schema({
   active: {
     type: Boolean,
@@ -48,20 +55,20 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     // TODO:  required: [true, 'You must enter a birthday.'],
   },
-  show_ftns: [ // flag type numbers (ftns) the user can see
+  showFtns: [ // flag type numbers (ftns) the user can see
     {
       type: String,
       required: true,
     }
   ],
-  privacy_levels: [String], // show my fields (index is level, content is '+'-separated)
+  showFields: [String], // show my fields (index is level, content is '+'-separated)
   pln: { // profile privacy level
     type: Number,
     required: true,
   },
   delDate: Date, // if privacy=0 for a certain span from here, delete
   friends: [String], // uid of each friend
-  friends_pending: [String], // uid of each pending friend request
+  pendingFriends: [String], // uid of each pending friend request
   display: { // display name
     // TODO: (future) contains @ if cross-site
     type: String,
@@ -76,7 +83,7 @@ UserSchema.plugin(AutoIncrement, {inc_field: 'id'});
 
 const User = mongoose.model(
   'User',
-  UserSchema
+  UserSchema,
 );
 // There are types such as Date, Boolean; put the type in brackets to require an array
 // (*Mongoose v5.10.15: SchemaTypes*, n.d.).

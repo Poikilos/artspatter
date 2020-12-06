@@ -13,7 +13,7 @@ exports.signup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     pln: 5,
-    show_ftns: [0, 1, 2],
+    showFtns: [0, 1, 2],
     display: req.body.username,
     password: bcrypt.hashSync(req.body.password, 8),
   });
@@ -41,8 +41,14 @@ exports.signup = (req, res) => {
               res.status(500).send({ message: err });
               return;
             }
-
-            res.send({ message: "User was registered successfully!" });
+            user.uid = user.id.toString();
+            user.save(err => {
+              if (err) {
+                res.status(500).send({ message: err });
+                return;
+              }
+              res.send({ message: `User was registered successfully! uid: ${user.uid}` });
+            });
           });
         }
       );

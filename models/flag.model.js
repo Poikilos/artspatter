@@ -18,6 +18,9 @@ const FlagSchema = new mongoose.Schema({
 FlagSchema.index({ uid: 1, fid: 1 }, { unique: true });
 // ^ compound index (user can only choose one flag)
 
-const Flag = mongoose.model('Flag', FlagSchema);
+const Flag = mongoose.model(
+  'Flag',
+  FlagSchema,
+);
 
 module.exports = Flag;

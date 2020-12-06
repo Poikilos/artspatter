@@ -13,6 +13,61 @@ This document explains how to maintain the code.
       - calls (models/user.model.js) mongoose User model
         - writes to mongodb
 
+## Database
+### IDs are text for cross-site support
+IDs must be strings for cross-site synchronized data (for example,
+uid should be unique and auto-incremented, but the user table may
+contain users from other sites--therefore, the uid is the text form of
+the node-sequence id, and may contain "@" then a base URL of
+another installation.
+
+The id is used instead of usernames, since usernames may change, and
+that would cause problems with friend requests. Another solution would
+be a GUID, but id.toString()+atSiteStr is shorter.
+
+### Collection ("table") dependencies
+The software must initialize tables in this order
+(indented items are dependencies):
+- PrivacyLevel
+- Role
+  - `*cids` Category.cid
+  - `*rids` Role.rid
+- FlagType
+  - PrivacyLevel.pln
+- Section
+  - PrivacyLevel.pln
+- User (initial user is "admin" and has "admin" and "moderator" roles)
+  - `roles` [Role._id]
+  - `showFtns` [FlagType]
+  - `friends` [User.uid]
+  - `pendingFriends` [User.uid]
+  - `parent` User.uid
+  - `privacy_levels` [PrivacyLevel.ftn]
+  - PrivacyLevel.pln
+- Category
+  - Section.sid
+  - User.uid
+  - `pln` PrivacyLevel.pln
+  - `showFields` index is PrivacyLevel.pln
+    (denormalized for speed)
+- VoteType
+  - VoteType.vtn
+  - PrivacyLevel.pln
+
+#### No initial entries
+- Flag
+  - User.uid
+  - FlagType.ftn
+- Post
+  - User.uid
+  - Category.cid
+  - FlagType.ftn
+  - PrivacyLevel.pln
+- Vote
+  - User.uid
+  - Post.pid
+  - site (no table yet--may be foreign key in future versions)
+  - VoteType.vtn
 
 ## Tailwind
 Tailwind generates some of the css, so:

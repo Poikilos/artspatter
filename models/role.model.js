@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const Role = mongoose.model(
-  'Role',
-  new mongoose.Schema({
+const RoleSchema = new mongoose.Schema({
   // User objects use the auto-generated role._id as a foreign key.
   active: Boolean,
   rid: { // plain-text role such as "admin" or "user"
@@ -17,12 +15,12 @@ const Role = mongoose.model(
   rrids: [String], // TODO: (future) Role can read user profiles where role.title matches
   mrids: [String], // TODO: (future) Role can modify users where role.title matches
   drids: [String], // TODO: (future) Role can deactivate users where role.title matches
-  })
-);
+});
 
-// entries:
-// (true, "admin")
-// (true, "moderator")
-// (true, "user")
+
+const Role = mongoose.model(
+  'Role',
+  RoleSchema,
+);
 
 module.exports = Role;

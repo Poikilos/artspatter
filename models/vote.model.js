@@ -27,6 +27,9 @@ const VoteSchema = new mongoose.Schema({
 VoteSchema.index({ uid: 1, pid: 1 }, { unique: true });
 // ^ compound index (user can only vote once)
 
-const Vote = mongoose.model('Vote', VoteSchema);
+const Vote = mongoose.model(
+  'Vote',
+  VoteSchema,
+);
 
 module.exports = Vote;

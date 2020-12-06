@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const VoteType = mongoose.model('VoteType', new mongoose.Schema({
+const VoteTypeSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     required: true,
@@ -23,12 +23,11 @@ const VoteType = mongoose.model('VoteType', new mongoose.Schema({
     type: Number,
     required: true,
   },
-}));
+});
+
+const VoteType = mongoose.model(
+  'VoteType', 
+  VoteTypeSchema,
+);
 
 module.exports = VoteType;
-
-// entries:
-// (1,1,"Like"),
-// (2,-1,"Dislike")
-// (3,-1,"Offensive")
-// (4,-1,"Spam")

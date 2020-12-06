@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // const Role = require('./role');
 
-const Post = mongoose.model('Post', new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
   active: Boolean,
   pid: {
     type: String, // TODO: (future) contains @ if cross-site
@@ -48,7 +48,12 @@ const Post = mongoose.model('Post', new mongoose.Schema({
   body: String, // the full post or the image description
   color: String, // for preview during high-load scenarios or censored content
   note: String, // reserved for system use
-}));
+});
+
+const Post = mongoose.model(
+  'Post',
+  PostSchema,
+);
 // There are types such as Date, Boolean; put the type in brackets to require an array
 // (*Mongoose v5.10.15: SchemaTypes*, n.d.).
 
