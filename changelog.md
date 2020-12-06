@@ -1,5 +1,13 @@
 # Changelog
 
+## [git] - 2020-12-06
+### Added
+- placeholder for post system
+- tests
+
+### Changed
+- No longer hard-code settings (See readme).
+
 
 ## [git] - 2020-11-28
 ### Added

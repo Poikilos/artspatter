@@ -54,11 +54,13 @@ The software must initialize tables in this order
   - VoteType.vtn
   - PrivacyLevel.pln
 
-#### No initial entries
+#### No required entries
+(only added for testing)
+
 - Flag
   - User.uid
   - FlagType.ftn
-- Post
+- Post (see `initialTestPost`)
   - User.uid
   - Category.cid
   - FlagType.ftn
@@ -82,6 +84,10 @@ Tailwind generates some of the css, so:
 
 ## Using VSCode
 - Open the server.code-workspace
+- If you have changed the PORT setting (the React frontend web
+  interface port as set in client/.env), open .vscode/launch.json and 
+  change the port number in the URL. Also change the port number in the
+  proxy URL in package.json.
 - In the Run menu, choose "npm start" 
 
 

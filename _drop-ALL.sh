@@ -1,10 +1,11 @@
-@echo off
-REM Content:
+#!/bin/sh
+
+# Content:
 node _drop-votes
 node _drop-posts
 node _drop-flags
 
-REM Structure & Users:
+# Structure & Users:
 node _drop-votetypes
 node _drop-CATEGORIES
 node _drop-USERS

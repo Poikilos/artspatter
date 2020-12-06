@@ -8,9 +8,10 @@ Comments in the code marked "(future)" are not for the 8-week project,
 but are being considered for future versions.
 
 
-## Installation
-(These steps are only necessary for future editions--These pieces are
+## Configuration
+(These steps are only necessary if downloaded from git--These pieces are
 included in the workspace.)
+
 - Create your config/auth.config.js similar to:
 ```JavaScript
 module.exports = {
@@ -24,6 +25,19 @@ module.exports = {
   PORT: '27017',
   DB: 'artspatter',
 }
+```
+- Create your `client/.env` similar to defaults below--PORT default
+  comes from "npm start" internally which uses the PORT environment 
+  variable (API_URL's port must match API_PORT in `.env`):
+```
+PORT=3000
+API_URL=http://localhost:5000/api/auth/
+```
+- Create your `.env` similar to the defaults below (CLIENT_ORIGIN must
+  match PORT in client/.env):
+```
+API_PORT = 5000
+CLIENT_ORIGIN = http://localhost:3000
 ```
 
 

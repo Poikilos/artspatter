@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-
-// const Role = require('./role');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const PostSchema = new mongoose.Schema({
   active: Boolean,
   pid: {
     type: String, // TODO: (future) contains @ if cross-site
-    required: true,
+    // required: true,
   },
   uid: { // user.uid
     type: String,
@@ -48,6 +47,13 @@ const PostSchema = new mongoose.Schema({
   body: String, // the full post or the image description
   color: String, // for preview during high-load scenarios or censored content
   note: String, // reserved for system use
+});
+
+PostSchema.plugin(AutoIncrement, {inc_field: 'post_id'});
+PostSchema.post('save', function(doc, next) {
+  doc.uid = doc.post_id.toString();
+  console.log(`  * saved a post as uid ${doc.uid}`);
+  next();
 });
 
 const Post = mongoose.model(

@@ -4,13 +4,15 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 // See https://www.npmjs.com/package/mongoose-sequence
 
 // const Role = require('./role');
-
-class UserPrivacy {
-  constructor() {
-    this.email = 1;
-    this.year = 7;
-  }
-}
+const UserPrivacySchema = new mongoose.Schema({
+  display: Number,
+  overview: Number,
+  email: Number,
+  avatarPath: Number,
+  coverPath: Number,
+  birthday: Number,
+  friends: Number,
+});
 
 const UserSchema = new mongoose.Schema({
   active: {
@@ -34,7 +36,8 @@ const UserSchema = new mongoose.Schema({
     // TODO: (future) contains extra @ if cross-site (determine if so from username)
     type: String,
     unique: true,
-    sparse: true, // allow more than one null (won't work with "required")
+    sparse: true,
+    // ^ allow more than one null (won't work with "required")
     // required: [true, 'You must enter an e-mail address.']
   },
   confirmed: Boolean, // e-mail confirmed
@@ -51,6 +54,9 @@ const UserSchema = new mongoose.Schema({
   m: Date, // modified date
   previousPHs: [String], // previous password hashes
   avatarPath: String,
+  overview: String, // profile overview
+  coverPath: String, // cover image path
+  color: String, // theme color 
   birthday: {
     type: Date,
     // TODO:  required: [true, 'You must enter a birthday.'],
@@ -61,7 +67,12 @@ const UserSchema = new mongoose.Schema({
       required: true,
     }
   ],
-  showFields: [String], // show my fields (index is level, content is '+'-separated)
+  showFields: {
+    type: UserPrivacySchema,
+    default: {display:7, overview:4, email:1, avatarPath:7, coverPath:7, birthday:1, friends: 3},
+  },
+  // ^ show my fields 
+  // ^ (if [String] then index is level, content is '+'-separated)
   pln: { // profile privacy level
     type: Number,
     required: true,
@@ -79,7 +90,7 @@ const UserSchema = new mongoose.Schema({
   note: String, // reserved for system use
 });
 
-UserSchema.plugin(AutoIncrement, {inc_field: 'id'});
+UserSchema.plugin(AutoIncrement, {inc_field: 'user_id'});
 
 const User = mongoose.model(
   'User',
@@ -88,4 +99,4 @@ const User = mongoose.model(
 // There are types such as Date, Boolean; put the type in brackets to require an array
 // (*Mongoose v5.10.15: SchemaTypes*, n.d.).
 
-module.exports = User;
+module.exports = User, UserPrivacySchema;
