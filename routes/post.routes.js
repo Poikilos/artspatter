@@ -1,3 +1,6 @@
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/post.controller");
 
@@ -10,24 +13,8 @@ module.exports = function(app) {
       next();
     });
   
-    app.post("/api/post/save", controller.savePost);
+    app.post("/api/post/upload", upload.single('image'), controller.uploadPost);
 
-    app.get("/api/post/all", controller.getAll);
-
-    /*
-    app.get("/api/post/user", [authJwt.verifyToken], controller.userPosts);
-  
-    app.get(
-      "/api/post/mod",
-      [authJwt.verifyToken, authJwt.isModerator],
-      controller.moderatorPosts
-    );
-  
-    app.get(
-      "/api/post/admin",
-      [authJwt.verifyToken, authJwt.isAdmin],
-      controller.adminPosts
-    );
-    */
+    app.get("/api/post/all", controller.getPublicPosts);
   };
   

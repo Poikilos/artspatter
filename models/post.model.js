@@ -15,6 +15,10 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  license: {
+    type: String,
+    // TODO: required: true,
+  },
   /*
   user_id: { // (*Mongoose relationships tutorial*, n.d.)
     type: mongoose.Schema.Types.ObjectId,
@@ -43,7 +47,7 @@ const PostSchema = new mongoose.Schema({
   offends: Number, // cache (of Vote table "offensive" entries)
   adult: Number, // #of Flag table "adult" entries; overrides audience
   thumb: String, // relative url to public (thumbnail of art or post)
-  full: String, // relative url to image (artwork)
+  originalImagePath: String, // relative url to image (artwork)
   body: String, // the full post or the image description
   color: String, // for preview during high-load scenarios or censored content
   note: String, // reserved for system use
