@@ -2,6 +2,31 @@
 
 This document explains how to maintain the code.
 
+In MongoDB, collections operate similarly to tables.
+
+Mongoose operates MongoDB similarly to a relational database.
+
+## Upload
+
+### Upload part 1: React.js frontend
+- App.jsx:
+  - It shows a link to the upload form in the navbar.
+  - It calls the Upload component (client/components/upload.component.js)
+    which shows the form.
+- The user fills in the form and presses submit.
+- If the Upload component determines that the data is valid, the Upload
+  component calls the UploadService (client/services/upload.service.js)
+  - The Upload service uses axios to post the data to the API_URL + "/upload"
+    (see Upload part 2).
+
+### Upload part 2: Node.js backend
+- The route recieves the data (routes/post.routes.js)
+  - The route calls controller.uploadPost (controllers/post.controller.js)
+    - uploadPost saves the data, or shows an error if it
+      determines it is invalid.
+      - Mongoose saves the data (or provides an error if uploadPost let
+        data through that breaks database rules such as unique fields).
+
 
 ## Registration
 - (client/src/components/register.component.js) form
@@ -25,8 +50,8 @@ The id is used instead of usernames, since usernames may change, and
 that would cause problems with friend requests. Another solution would
 be a GUID, but id.toString()+atSiteStr is shorter.
 
-### Collection ("table") dependencies
-The software must initialize tables in this order
+### Collection dependencies
+The software must initialize collections in this order
 (indented items are dependencies):
 - PrivacyLevel
 - Role

@@ -2,7 +2,6 @@ const express = require('express');
 
 const multer  = require('multer');
 const bodyParser = require('body-parser');
-const upload = multer({ dest: 'uploads/' });
 const cors = require('cors');
 const dbConfig = require('./config/db.config');
 // ^  // automatically imported

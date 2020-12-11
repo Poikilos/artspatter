@@ -31,7 +31,7 @@ module.exports = {
   variable (API_URL's port must match API_PORT in `.env`):
 ```
 PORT=3000
-API_URL=http://localhost:5000/api/auth/
+API_URL=http://localhost:5000/api
 ```
 - Create your `.env` similar to the defaults below (CLIENT_ORIGIN must
   match PORT in client/.env):

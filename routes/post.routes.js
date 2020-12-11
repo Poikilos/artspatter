@@ -1,6 +1,6 @@
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
-
+// ^ moved to client/public/uploads later
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/post.controller");
 
