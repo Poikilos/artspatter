@@ -1,6 +1,4 @@
 const express = require('express');
-
-const multer  = require('multer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dbConfig = require('./config/db.config');
@@ -42,6 +40,8 @@ db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true, // (BezKoder, 2019a)
+    useFindAndModify: false, // fix DeprecationWarning
+    useCreateIndex: true,  // fix DeprecationWarning
   })
   .then(() => {
     console.log('MongoDB is successfully connected.');

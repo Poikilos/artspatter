@@ -1,10 +1,26 @@
 // showNext(req, res, )
-
+const path = require("path");
+const multer = require("multer");
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Post = db.post;
 // const reporting = require("../reporting");
+
+// See <https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088>:
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads')
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+    // path.extname(file.originalname));
+  }
+});
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+}); //.single("myImage");
 
 exports.getPublicPosts = (req, res) => {
 
@@ -33,6 +49,11 @@ exports.getPublicPosts = (req, res) => {
   
 exports.uploadPost = (req, res) => {
   console.log('post Body: ', req.body);
+
+  // var img = fs.readFileSync(req.file.path);
+  // var encode_image = img.toString('base64');
+  // ^ to save to database, see https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
+  
   /*
   res.json({
     message: "We recieved your data",
@@ -45,7 +66,7 @@ exports.uploadPost = (req, res) => {
   const originalImagePath = req.file.path;
   //TODO: const remoteImageName = req.file.originalname;
   // ^ See multer documentation
-
+  
   const post = new Post({
     active: true,
     uid: 0, // TODO: change this
@@ -70,7 +91,7 @@ exports.uploadPost = (req, res) => {
         console.log("  *", err);
         return;
       }
-      console.log(`  * saved a post "${post.title}" in ${post.cid}`);
+      console.log(`  * saved a post "${post.title}" in ${post.cid} at ${post.originalImagePath}`);
     });
   });
 };

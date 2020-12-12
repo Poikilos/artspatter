@@ -10,6 +10,8 @@ mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true, // (BezKoder, 2019a)
+    useFindAndModify: false, // fix DeprecationWarning
+    useCreateIndex: true,  // fix DeprecationWarning
   })
   .then(() => {
     console.log('MongoDB is successfully connected.');
