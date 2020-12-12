@@ -32,6 +32,7 @@ exports.signup = (req, res) => {
         (err, roles) => {
           if (err) {
             res.status(500).send({ message: err });
+            console.log("+User FAILED get role(s) ", req.body.roles, err);
             return;
           }
 
@@ -39,14 +40,17 @@ exports.signup = (req, res) => {
           user.save(err => {
             if (err) {
               res.status(500).send({ message: err });
+              console.log("+User FAILED to save id ", user.id, err);
               return;
             }
             user.uid = user.id.toString();
             user.save(err => {
               if (err) {
                 res.status(500).send({ message: err });
+                console.log("+User FAILED to resave uid ", user.uid, err);
                 return;
               }
+              console.log("+User uid ", user.uid);
               res.send({ message: `User was registered successfully! uid: ${user.uid}` });
             });
           });
@@ -100,9 +104,16 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
-      });
+      var token = jwt.sign(
+        {
+          id: user.id,
+          uid: user.uid,
+        },
+        config.secret,
+        {
+          expiresIn: 86400, // 24 hours
+        }
+      );
 
       var authorities = [];
 
@@ -111,6 +122,7 @@ exports.signin = (req, res) => {
       }
       res.status(200).send({
         id: user._id,
+        uid: user.uid,
         username: user.username,
         email: user.email,
         roles: authorities,

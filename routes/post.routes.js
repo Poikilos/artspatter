@@ -31,7 +31,7 @@ module.exports = function(app) {
       next();
     });
   
-    app.post("/api/post/upload", [/* authJwt.verifyToken,*/ upload.single('file')], controller.uploadPost);
+    app.post("/api/post/upload", [ authJwt.verifyToken, upload.single('file')], controller.uploadPost);
 
     app.get("/api/post/all", controller.getPublicPosts);
   };

@@ -54,9 +54,10 @@ const PostSchema = new mongoose.Schema({
 });
 
 PostSchema.plugin(AutoIncrement, {inc_field: 'post_id'});
+
 PostSchema.post('save', function(doc, next) {
-  doc.uid = doc.post_id.toString();
-  console.log(`  * saved a post as uid ${doc.uid}`);
+  doc.pid = doc.post_id.toString();
+  console.log(`  * set pid to ${doc.pid}`);
   next();
 });
 

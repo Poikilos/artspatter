@@ -92,6 +92,12 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(AutoIncrement, {inc_field: 'user_id'});
 
+UserSchema.post('save', function(doc, next) {
+  doc.uid = doc.user_id.toString();
+  console.log(`  * set uid to ${doc.uid}`);
+  next();
+});
+
 const User = mongoose.model(
   'User',
   UserSchema,
