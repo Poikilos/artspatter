@@ -1,6 +1,12 @@
 # Changelog
 
 ## [git] - 2020-12-12
+### Added
+- `fs` and `mv` to save uploads properly.
+- `node-thumbnail` to add thumbnails (Only save posts
+  when the file is a real image, according to whether
+  the thumbnail operation reports success).
+
 
 ## [git] - 2020-12-11
 ### Fixed
@@ -8,9 +14,11 @@
 - Fix use of multer for uploads.
 - Install and implement `tailwind-navbar-react`
 
+
 ## [git] - 2020-12-11
 ### Fixed
 - refactor html, migrate most to Tailwind and semantic HTML
+
 
 ## [git] - 2020-12-06
 ### Added

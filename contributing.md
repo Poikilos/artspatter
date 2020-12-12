@@ -8,6 +8,12 @@ Mongoose operates MongoDB similarly to a relational database.
 
 ## Upload
 
+### artspatter user-submitted data
+- `uploads/postimages/` (unpublished) - selected via `multer` in `post.routes.js`
+- `public/user/${uid}/` (published)
+- `public/thumbs/user/${uid}/` (published thumbmnails)
+
+
 ### Upload part 1: React.js frontend
 - App.jsx:
   - It shows a link to the upload form in the navbar.

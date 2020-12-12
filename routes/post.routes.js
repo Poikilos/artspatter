@@ -1,7 +1,18 @@
 const multer  = require('multer');
+const fs = require('fs');
 const path = require("path");
+
+const projectDir = path.dirname(__dirname);
+const UNPUBLISHED_DIR = projectDir + "/uploads";
+const UNPUBLISHED_FILES_DIR = UNPUBLISHED_DIR + "/postimages"
+if (!fs.existsSync(UNPUBLISHED_DIR)){
+  fs.mkdirSync(UNPUBLISHED_DIR);
+}
+if (!fs.existsSync(UNPUBLISHED_FILES_DIR)){
+  fs.mkdirSync(UNPUBLISHED_FILES_DIR);
+}
 const storage = multer.diskStorage({
-  destination: "./uploads/postimages/",
+  destination: UNPUBLISHED_FILES_DIR,
   filename: function (req, file, cb) {
     console.log("file: ", file)
     cb(

@@ -1,5 +1,7 @@
 # artspatter user-submitted data
 uploads/
+public/user/
+public/thumbs/
 
 # Logs
 logs

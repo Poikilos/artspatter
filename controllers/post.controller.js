@@ -4,18 +4,17 @@ const multer = require("multer");
 const config = require("../config/auth.config");
 const db = require("../models");
 const path = require('path');
-var mv = require('mv');
-var fs = require('fs');
+const mv = require('mv');
+const fs = require('fs');
 const authJwt = require("../middlewares/authJwt");
 
 const projectDir = path.dirname(__dirname);
-const clientDir = projectDir + "/client";
-const PUBLIC_DIR = clientDir + "/public";
+const PUBLIC_DIR = projectDir + "/public";
 
 const User = db.user;
 const Post = db.post;
 const { nanoid } = require("nanoid");
-var thumb = require('node-thumbnail').thumb;
+const thumb = require('node-thumbnail').thumb;
 // const reporting = require("../reporting");
 
 function getDotExt(getExtPath) {
