@@ -47,7 +47,8 @@ const PostSchema = new mongoose.Schema({
   offends: Number, // cache (of Vote table "offensive" entries)
   adult: Number, // #of Flag table "adult" entries; overrides audience
   thumb: String, // relative url to public (thumbnail of art or post)
-  originalImagePath: String, // relative url to image (artwork)
+  realRelPath: String, // relative url to image (artwork)--relative to /public which appears as API_URL
+  cononicalName: String, // filename before uploaded as stated by the browser
   body: String, // the full post or the image description
   color: String, // for preview during high-load scenarios or censored content
   note: String, // reserved for system use

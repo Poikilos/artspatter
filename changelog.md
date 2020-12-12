@@ -1,5 +1,17 @@
 # Changelog
 
+## [git] - 2020-12-12
+
+## [git] - 2020-12-11
+### Fixed
+- Refactor html: Migrate most or all to Tailwind and semantic HTML.
+- Fix use of multer for uploads.
+- Install and implement `tailwind-navbar-react`
+
+## [git] - 2020-12-11
+### Fixed
+- refactor html, migrate most to Tailwind and semantic HTML
+
 ## [git] - 2020-12-06
 ### Added
 - placeholder for post system
