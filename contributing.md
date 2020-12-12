@@ -16,7 +16,7 @@ Mongoose operates MongoDB similarly to a relational database.
 - The user fills in the form and presses submit.
 - If the Upload component determines that the data is valid, the Upload
   component calls the UploadService (client/services/upload.service.js)
-  - The Upload service uses axios to post the data to the API_URL + "/upload"
+  - The Upload service uses axios to post the data to the API_URL + "/api/upload"
     (see Upload part 2).
 
 ### Upload part 2: Node.js backend
