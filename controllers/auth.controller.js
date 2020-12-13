@@ -1,10 +1,11 @@
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
+
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
@@ -13,6 +14,7 @@ exports.signup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     pln: 5,
+    c: Date.now(), // should only have parenthesis upon creation not schema
     showFtns: [0, 1, 2],
     display: req.body.username,
     password: bcrypt.hashSync(req.body.password, 8),

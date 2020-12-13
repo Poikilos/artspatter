@@ -25,6 +25,12 @@ const PostSchema = new mongoose.Schema({
     ref: 'User'
   }
   */
+  c: {
+    // created date
+    type: Date,
+    default: Date.now, // should only have parenthesis upon creation not schema
+    required: true,
+  },
   m: Date, // modified date
   mBy: String, // last change by what user number
   // TODO: (future) ^ mBy should contain @ if cross-site

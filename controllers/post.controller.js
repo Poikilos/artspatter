@@ -7,14 +7,15 @@ const path = require('path');
 const mv = require('mv');
 const fs = require('fs');
 const authJwt = require("../middlewares/authJwt");
+const { nanoid } = require("nanoid");
+const thumb = require('node-thumbnail').thumb;
+
 const util = require('../util.js');
 const projectDir = path.dirname(__dirname);
 const PUBLIC_DIR = projectDir + "/public";
 
 const User = db.user;
 const Post = db.post;
-const { nanoid } = require("nanoid");
-const thumb = require('node-thumbnail').thumb;
 
 exports.getPublicPosts = (req, res) => {
   collection.find(query).stream()
@@ -180,7 +181,7 @@ exports.uploadPost = (req, res) => {
                       err);
           res.status(500).send({successful: false, message: err.message});
           fs.unlinkSync(oldPath);
-          return
+          return;
         }
         console.log("  - moving \"", oldPath, "\" to \"", PUBLIC_DIR + realRel,
                     "\"...");
@@ -193,6 +194,7 @@ exports.uploadPost = (req, res) => {
             cid: "art",
             ftn: 0,
             pln: 7,
+            c: Date.now(), // should only have parenthesis upon creation not schema
             thumb: thumbRel,
             oldPath: oldPath,
             realRelPath: realRel,
@@ -219,6 +221,7 @@ exports.uploadPost = (req, res) => {
                 return;
               }
               console.log(`  - uid ${post.uid} saved a post "${post.title}"`
+                          + ` on ${post.c}`
                           + ` in ${post.cid} at ${post.realRelPath} with thumbRel ${thumbRel} and thumbPath`
                           + ` ${thumbPath}.`);
               res.status(200).send({successful: true, message: "Processing is complete!"});

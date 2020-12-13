@@ -22,6 +22,12 @@ const VoteSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  c: {
+    // created date
+    type: Date,
+    default: moment(),
+    required: true,
+  },
 });
 
 VoteSchema.index({ uid: 1, pid: 1 }, { unique: true });

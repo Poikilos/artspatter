@@ -1,5 +1,9 @@
 # Changelog
 
+## [git] - 2020-12-13
+### Added
+- store c time (creation Date)
+
 ## [git] - 2020-12-12
 ### Added
 - `node-thumbnail` to add thumbnails (Only save posts
@@ -22,7 +26,7 @@
 
 ## [git] - 2020-12-11
 ### Added
-- Install the react-infinite-scroller using npm.
+- Install the react-infinite-scroll-component using npm.
 
 ### Changed
 - Change code to semantic HTML.
@@ -60,7 +64,7 @@ Create a logo.
 - Create a PrivacySchema to determine on which profile fields the user
   can change the privacy level (not yet added to git).
 - Script the loading of initial data necessary to operate the site and
-  to test the functionality, utilizing all models.
+  to test the functionality, utilizing all models except Vote.
 
 ### Changed
 - No longer hard-code settings (See readme).

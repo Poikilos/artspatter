@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const dbConfig = require('./config/db.config');
-// ^  // automatically imported
 // const mongoose = require('mongoose');
 const path = require('path');
 // const routes = require('./routes/api');
 var bcrypt = require("bcryptjs");
+
+const dbConfig = require('./config/db.config');
 require('dotenv').config();
 
 const app = express();
@@ -219,6 +219,7 @@ function initialUsers(uid) {
         let thisV = thisE[1]; // let forces scope to be code block so last value doesn't repeat
         let passwordPlainText = thisE[7];
         const user = new User({
+          c: Date.now(), // should only have parenthesis upon creation not schema
           active: thisE[0],
           uid: thisE[1],
           username: thisE[2],
@@ -350,6 +351,7 @@ function initialTestPosts(uid) {
         let thisE = entries[index];
         let thisV = thisE[2]; // let forces scope to be code block so last value doesn't repeat
         const post = new Post({
+          c: Date.now(), // should only have parenthesis upon creation not schema
           active: thisE[0],
           uid: thisE[1],
           title: thisE[2],

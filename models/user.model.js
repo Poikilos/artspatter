@@ -51,14 +51,22 @@ const UserSchema = new mongoose.Schema({
   ],
   code: String, // for password reset etc
   phM: Date, // password hash modified date
+  c: {
+    // created date
+    type: Date,
+    default: Date.now, // should only have parenthesis upon creation not schema
+    required: true,
+  },
   m: Date, // modified date
   previousPHs: [String], // previous password hashes
   avatarPath: String,
-  overview: String, // profile overview
-  coverPath: String, // cover image path
+  overview: String, // profile overview (relative to API_URL)
+  coverPath: String, // cover image path (relative to API_URL)
   color: String, // theme color 
   birthday: {
     type: Date,
+    default: moment(),
+    required: true,
     // TODO:  required: [true, 'You must enter a birthday.'],
   },
   showFtns: [ // flag type numbers (ftns) the user can see

@@ -13,6 +13,12 @@ const FlagSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  c: {
+    // created date
+    type: Date,
+    default: Date.now, // should only have parenthesis upon creation not schema
+    required: true,
+  },
 });
 
 FlagSchema.index({ uid: 1, fid: 1 }, { unique: true });
