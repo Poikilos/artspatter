@@ -2,10 +2,15 @@
 
 ## [git] - 2020-12-12
 ### Added
-- `fs` and `mv` to save uploads properly.
 - `node-thumbnail` to add thumbnails (Only save posts
   when the file is a real image, according to whether
   the thumbnail operation reports success).
+
+### Fixed
+- `fs` and `mv` to save uploads properly.
+- Install filesystem and thumbnailing libraries using npm.
+- Move processable images to the public directory and generate
+  thumbnails upon upload, saving paths to the database.
 
 
 ## [git] - 2020-12-11
@@ -16,17 +21,64 @@
 
 
 ## [git] - 2020-12-11
+### Added
+- Install the react-infinite-scroller using npm.
+
+### Changed
+- Change code to semantic HTML.
+
 ### Fixed
+- Install tailwind-navbar-react using npm.
+- Implement it to redo the website’s nav for responsiveness.
 - refactor html, migrate most to Tailwind and semantic HTML
+
+
+## [git] - 2020-12-10
+### Added
+Create a logo.
+
+### Changed
+- Split the nav code into a separate component.
+
+### Fixed
+- Make a link load the upload form.
+- Change className in several cases to use Tailwind.
+
+
+## [git] - 2020-12-09
+### Added
+- Install multer for processing image uploads.
+- Code a new route and new API feature that saves the image then adds
+  metadata for it in the database.
+- Create a new upload form that sends data to the new backend route.
 
 
 ## [git] - 2020-12-06
 ### Added
 - placeholder for post system
 - tests
+- Create a PrivacySchema to determine on which profile fields the user
+  can change the privacy level (not yet added to git).
+- Script the loading of initial data necessary to operate the site and
+  to test the functionality, utilizing all models.
 
 ### Changed
 - No longer hard-code settings (See readme).
+- Refine posting, voting, VoteType, flagging, FlagType, section,
+  category, role, and user models (not yet added to git).
+
+
+## [git] - 2020-12-05
+### Added
+- (backend) Implement numerical id using node-sequence.
+- (frontend) errorLeaf function (and reporting module)
+  - encapsulate error message formatting code.
+- (backend) Create scripts to clear the database.
+- (backend) Create functions to load initial database entries to make site usable. 
+
+### Fixed
+- (frontend) Fix error reporting (React will not accept an error object
+  as a state value--use new errorLeaf function).
 
 
 ## [git] - 2020-11-28
@@ -51,6 +103,7 @@
 
 ### Removed
 - jshint
+
 
 ## [git] - 2020-11-25
 ### Added

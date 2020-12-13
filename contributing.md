@@ -6,6 +6,108 @@ In MongoDB, collections operate similarly to tables.
 
 Mongoose operates MongoDB similarly to a relational database.
 
+
+## Symbols
+(Use the fontawesome react component aka `fortawesome/*`. See
+<https://fontawesome.com/how-to-use/on-the-web/using-with/react>):
+
+Common code necessary for each js or jsx file:
+```JavaScript
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome
+```
+
+To only import the symbols you use into your final bundle (React
+bundle), import them one at a time:
+```JavaScript
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+```
+
+Globally import:
+(See <https://fontawesome.com/how-to-use/on-the-web/using-with/react>)
+
+Adjustments
+(See <https://fontawesome.com/how-to-use/on-the-web/using-with/react>)
+- `size`: This property of `FontAwesomeIcon` determines the size
+  relative to `font-size`: xs, sm, lg, 2x, 3x, 5x, 7x, 10x
+  - <https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons>
+  - Using the  `font-size` style property directly is also possible.
+
+Effects
+(See <https://fontawesome.com/how-to-use/on-the-web/using-with/react>)
+- `rotation={90}` or 180, 270
+- `transform={{ rotate: 42 }}` or any arbitrary angle
+- `flip="vertical"` or horizontal or both
+- `icon="spinner" spin` (or pulse)
+- `border` (void attribute)
+- `pull="left"` (or right)
+- `mask={['far', 'circle']}`
+- Layering:
+```JSX
+<span className="fa-layers fa-fw">
+  <FontAwesomeIcon icon="square" color="green" />
+  <FontAwesomeIcon icon="check" inverse transform="shrink-6" />
+</span>
+```
+- Using SVG Symbols
+```JSX
+<FontAwesomeIcon icon="coffee" symbol />
+<FontAwesomeIcon icon="coffee" symbol="beverage-icon" />
+```
+- Define a custom class (store an icon prefix and name for reuse)
+  (See <https://fontawesome.com/how-to-use/on-the-web/using-with/react>)
+
+### Imperative Code
+```JavaScript
+const element = <FontAwesomeIcon icon={faCoffee} />
+ReactDOM.render(element, document.body)
+```
+
+### Installed packs
+- [x] fontawesome-svg-core
+- [x] free-solid-svg-icons (fas)
+- [x] react-fontawesome
+- [ ] free-brands-svg-icons (fab)
+- [ ] free-regular-svg-icons (far)
+
+### Pro-only
+(code to avoid with the free version)
+
+NOTE: solid, light, regular, and duotone are pro-only: 
+pro-solid-svg-icons, pro-regular-svg-icons, pro-light-svg-icons, 
+
+pro-duotone-svg-icons
+```JSX
+// Light:
+<FontAwesomeIcon icon={["fal", "coffee"]} />
+// Regular:
+<FontAwesomeIcon icon={["far", "coffee"]} />
+// Solid
+<FontAwesomeIcon icon={["fas", "coffee"]} />
+// ...or, omit as FontAwesome defaults to solid, so no need to prefix:
+<FontAwesomeIcon icon="coffee" />
+// Brand:
+<FontAwesomeIcon icon={["fab", "github"]} />
+```
+
+import multiple styles of same icon:
+```JSX
+import { faCoffee as fasFaCoffee } from '@fortawesome/pro-solid-svg-icons'
+import { faCoffee as farFaCoffee } from '@fortawesome/pro-regular-svg-icons'
+```
+
+
+## response codes
+(See <https://moz.com/learn/seo/http-status-codes>)
+- 1xx: Informational responses: "The server is thinking through the request"
+- 2xx: completed successfully
+  - Example: `res.status(200).send({successful: true, message: "Processing is complete!"});`
+- 3xx: Redirection
+- 4xx: Client errors (page not found)
+- 5xx: could not complete request
+  - Example: `res.status(500).send({successful: false, message: err.message});`
+
+
 ## Upload
 
 ### artspatter user-submitted data
@@ -44,12 +146,22 @@ Mongoose operates MongoDB similarly to a relational database.
       - calls (models/user.model.js) mongoose User model
         - writes to mongodb
 
+## Debugging
+- React errors appear the **browser console**.
+- Node errors appear as standard output.
+
+### Acceptable warnings
+- `The Components object is deprecated. It will soon be removed`
+  This is due to Selenium IDE, not ArtSpatter. It appears on every
+  website when you have Selenium IDE installed.
+
+
 ## Database
 ### IDs are text for cross-site support
 IDs must be strings for cross-site synchronized data (for example,
 uid should be unique and auto-incremented, but the user table may
 contain users from other sites--therefore, the uid is the text form of
-the node-sequence id, and may contain "@" then a base URL of
+the mongoose-sequence id, and may contain "@" then a base URL of
 another installation.
 
 The id is used instead of usernames, since usernames may change, and
@@ -101,6 +213,7 @@ The software must initialize collections in this order
   - Post.pid
   - site (no table yet--may be foreign key in future versions)
   - VoteType.vtn
+
 
 ## Tailwind
 Tailwind generates some of the css, so:

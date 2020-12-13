@@ -7,7 +7,7 @@ const path = require('path');
 const mv = require('mv');
 const fs = require('fs');
 const authJwt = require("../middlewares/authJwt");
-
+const util = require('../util.js');
 const projectDir = path.dirname(__dirname);
 const PUBLIC_DIR = projectDir + "/public";
 
@@ -15,20 +15,8 @@ const User = db.user;
 const Post = db.post;
 const { nanoid } = require("nanoid");
 const thumb = require('node-thumbnail').thumb;
-// const reporting = require("../reporting");
-
-function getDotExt(getExtPath) {
-  var ext = /^.+\.([^.]+)$/.exec(getExtPath);
-  return (ext != null ? ("." + ext[1]) : "");
-}
-
-function removeExt(removeExtPath) {
-  dotExt = getDotExt(removeExtPath);
-  return removeExtPath.substring(0, removeExtPath.length - dotExt.length);
-}
 
 exports.getPublicPosts = (req, res) => {
-
   collection.find(query).stream()
   .on('data', function(doc){
     res.json({
@@ -45,23 +33,23 @@ exports.getPublicPosts = (req, res) => {
   .on('end', function(){
     res.status(200).send("Done.");
   });
-  // res.status(200).send("not yet implemented");
-  res.json({
-    message: "We recieved your data",
-  });
 };
 // (BezKoder, 2019a)
-//formerly  = (req, res) => {
+// formerly  = (req, res) => {
 exports.uploadPost = (req, res) => {
 
-  // See <https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088>:
+  // See <https://code.tutsplus.com/tutorials/file-upload-with-multer-
+  // in-node--cms-32088>:
 
-  console.log('post Body: ', req.body);
-  // console.log('post res: ', res) // really long, but confirmed to be a ServerResponse
+  // console.log('* post Body: ', req.body);
+  // console.log('post res: ', res)
+  // ^ really long, but confirmed to be a ServerResponse
   // console.log('error: ', error)
   // var img = fs.readFileSync(req.file.path);
   // var encode_image = img.toString('base64');
-  // ^ to save to database, see https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
+  // ^ to save to database, see
+  //   <https://code.tutsplus.com/tutorials/file-upload-with-multer-in-
+  //   node--cms-32088>
 
   /*
   res.json({
@@ -69,13 +57,21 @@ exports.uploadPost = (req, res) => {
   });
    */
   // const file = req.file; // TODO: (fix?) null for some reason
-  // ^ See 
-  console.log('post req.file: ', req.file);
   
   const file = req.file;
-  // req.file is the file, or supposted to be.
+  // console.log('* post req.file: ', req.file);
+  // file:
+  // (from multer)
+  // - fieldname: 'file'
+  // - originalname: <determined by browser: filename on user computer>
+  // - encoding: '7bit',
+  // - mimetype: 'image/png' (or other)
+  // - destination: the directory chosen in multer config
+  // - filename: 'file-1607787684940.png' or something similar
+  // - path: destination + "/" + filename
+  // - size: size in bytes
+
   const originalImageDir = file.destination;
-  // req.body will hold the text fields, if there were any
   const originalImageName = file.filename;
   const oldPath = file.path;
   /*
@@ -87,10 +83,10 @@ exports.uploadPost = (req, res) => {
     if (err) {
       console.log("err: ", err);
       // res.err = err;
-      res.send({message: err.message});
+      res.status(500).send({successful: false, message: err.message});
       return;
     }
-    console.log("decoded: ", decoded);
+    console.log("* decoded: ", decoded);
     const uid = decoded.uid;
     const usersRel = "/user";
     const usersPath = PUBLIC_DIR + usersRel;
@@ -102,7 +98,7 @@ exports.uploadPost = (req, res) => {
     if (!fs.existsSync(PUBLIC_DIR + userRel)){
       fs.mkdirSync(PUBLIC_DIR + userRel);
     }
-    const realRel = userRel + "/" + file.filename;
+    const realRel = userRel + "/" + util.removeStart(file.filename, "file-");
     const realPath = PUBLIC_DIR + realRel;
 
     if (!fs.existsSync(PUBLIC_DIR + "/thumbs")){
@@ -120,15 +116,15 @@ exports.uploadPost = (req, res) => {
     if (!fs.existsSync(uThumbsPath)){
       fs.mkdirSync(uThumbsPath);
     }
-    var dotExt = getDotExt(file.filename);;
+    var dotExt = util.getDotExt(file.filename);;
     // ^ https://stackoverflow.com/a/190933/4541104 CC BY-SA zangw April 7, 2016
     const thumbRel = uThumbsRel + "/" + nanoid() + dotExt;
-    console.log(`Using thumbRel path: ${thumbRel}`)
+    console.log(`* using thumbRel path: ${thumbRel}`)
     const thumbPath = PUBLIC_DIR + thumbRel;
-    let oldThumbPath = uThumbsPath + "/" + removeExt(file.filename) + "_thumb.png"
+    let oldThumbPath = uThumbsPath + "/" + util.removeExt(file.filename) + "_thumb.png"
     
     const thisV = req.body.title;
-    // res.send({message: `preparing image...`});
+    // res.status(100).send({message: `preparing image...`});
     console.log(`  - preparing thumbPath ${thumbPath} from oldPath ${oldPath}...`)
     thumb({
       source: oldPath, // could be a filename: dest/path/image.jpg
@@ -136,14 +132,20 @@ exports.uploadPost = (req, res) => {
       width: 128,
       height: 128,
       concurrency: 4,
-      overwrite: true,
+      overwrite: false,
+      // hashingType: 'sha1', // 'sha1', 'md5', 'sha256', 'sha512'
+      quiet: false, // log console messages
+      logger: function(message) {
+        console.log("    - " + message);
+      }
     }, function(files, err, stdout, stderr) {
       if (err) {
 
-        console.log(`  - Generating a thumbnail failed for oldPath ${oldPath}: `, err);
+        console.log(`  - ~~Post~~ thumbnail generation failed for oldPath`
+                    + ` ${oldPath}: `, err);
         // console.log(stdout);
         // console.log(stderr);
-        res.send({message: err.message});
+        res.status(500).send({successful: false, message: err.message});
         fs.unlinkSync(oldPath);
         return;
       }
@@ -151,13 +153,15 @@ exports.uploadPost = (req, res) => {
       console.log("  - moving...", files);
       if (files.length < 1) {
         if (fs.existsSync(oldThumbPath)) {
-          console.log(`** Resuming processing "${oldThumbPath}"`)
+          console.log(`  - found thumbnail "${oldThumbPath}"`)
         }
         else {
-          console.log(`  - Generating a thumbnail got 0 for oldPath ${oldPath}: FAILED`, err);
+          console.log(`  - ~~Post~~ thumbnail generation got 0 for oldPath`
+                      + ` "${oldPath}" and there was no ${oldThumbPath}: `,
+                      err);
           // console.log(stdout);
           // console.log(stderr);
-          res.send({message: "Generating a got 0."});
+          res.status(500).send({successful: false, message: "generating a got 0."});
           fs.unlinkSync(oldPath);
           return;
         }
@@ -166,20 +170,22 @@ exports.uploadPost = (req, res) => {
         oldThumbPath = files[0].dstPath;
       }
       //const thumbnail = files[0];
-      console.log("moving \"", oldThumbPath, "\" to \"", thumbPath, "\"...");
+      console.log("  - moving \"", oldThumbPath, "\" to \"", thumbPath, "\"...");
       mv(oldThumbPath, thumbPath, {mkdirp: true}, function(err) {
         // done. it first created all the necessary directories, and then
         // tried fs.rename, then falls back to using ncp to copy the dir
         // to dest and then rimraf to remove the source dir
         if (err) {
-          console.log(`+Post ${thisV} by ${uid} failed with a moving error: `, err);
-          res.send({message: err.message});
+          console.log(`  - ~~Post~~ ${thisV} by ${uid} failed with a moving error: `,
+                      err);
+          res.status(500).send({successful: false, message: err.message});
           fs.unlinkSync(oldPath);
           return
         }
-        console.log("moving \"", oldPath, "\" to \"", PUBLIC_DIR + realRel, "\"...");
+        console.log("  - moving \"", oldPath, "\" to \"", PUBLIC_DIR + realRel,
+                    "\"...");
         mv(oldPath, PUBLIC_DIR + realRel, {mkdirp: true}, function(err) {
-          //res.send("saving...");
+          // res.status(100).send("saving...");
           const post = new Post({
             active: true,
             uid: 0, // TODO: change this
@@ -192,39 +198,36 @@ exports.uploadPost = (req, res) => {
             realRelPath: realRel,
             cononicalName: file.originalname,
             body: req.body.description,
-            //TODO: remoteImageName: req.body.remoteImageName,
+            // TODO: remoteImageName: req.body.remoteImageName,
           });
           post.save((err) => {
+            // See [Save data to MongoDB with
+            // Mongoose](https://www.youtube.com/watch?v=jwVCgueYcgE)
+            // November 18, 2019 by Esterling Accime
             if (err) {
-              console.log(`+Post ${thisV} by ${uid} failed with an error: `, err);
-              res.send({message: err.message});
+              console.log(`  - ~~Post~~ ${thisV} by ${uid} failed with an error: `,
+                          err);
+              res.status(500).send({successful: false, message: err.message});
               return;
             }
-            console.log(`+Post ${thisV} by ${uid}...`);
+            console.log(`  - ~~Post~~ ${thisV} by ${uid}...`);
             post.uid = uid;
             post.save(err => {
               if (err) {
                 console.log("  *", err);
-                res.send({message: err.message});
+                res.status(500).send({successful: false, message: err.message});
                 return;
               }
-              console.log(`  * uid ${post.uid} saved a post "${post.title}" in ${post.cid} at ${post.realRelPath} with thumbPath ${thumbPath}.`);
-              res.send({message: "Processing is complete!"});
+              console.log(`  - uid ${post.uid} saved a post "${post.title}"`
+                          + ` in ${post.cid} at ${post.realRelPath} with thumbRel ${thumbRel} and thumbPath`
+                          + ` ${thumbPath}.`);
+              res.status(200).send({successful: true, message: "Processing is complete!"});
             });
           });
         });
       });
     });
-
-    
-
-    
   });
-  //TODO: const remoteImageName = req.file.originalname;
+  // TODO: const remoteImageName = req.file.originalname;
   // ^ See multer documentation
-  
-  
 };
-
-// See https://www.youtube.com/watch?v=jwVCgueYcgE
-  
