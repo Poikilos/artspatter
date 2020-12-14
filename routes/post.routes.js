@@ -42,9 +42,8 @@ module.exports = function(app) {
       );
       next();
     });
-  
+
     app.post("/api/post/upload", [ authJwt.verifyToken, upload.single('file')], controller.uploadPost);
 
-    app.get("/api/post/all", controller.getPublicPosts);
+    app.post("/api/post/all", controller.getPublicPosts);
   };
-  

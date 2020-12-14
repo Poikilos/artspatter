@@ -25,7 +25,7 @@ const VoteSchema = new mongoose.Schema({
   c: {
     // created date
     type: Date,
-    default: moment(),
+    default: Date.now, // should only have parenthesis upon creation not schema
     required: true,
   },
 });

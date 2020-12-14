@@ -65,7 +65,7 @@ const UserSchema = new mongoose.Schema({
   color: String, // theme color 
   birthday: {
     type: Date,
-    default: moment(),
+    default: Date.now, // should only have parenthesis upon creation not schema
     required: true,
     // TODO:  required: [true, 'You must enter a birthday.'],
   },

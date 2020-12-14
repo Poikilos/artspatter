@@ -53,6 +53,34 @@ since this file and the code are plain text files (though this file
 will change the markings to italics if viewed in a markdown viewer or
 if converted to another format such as HTML or PDF).
 
+## Federating
+After the 8-week project is complete, adding a feature to connect
+multiple sites would be a useful feature.
+
+### Security with Federating
+Federated sites don't necessarily run by the same rules as your site.
+Choosing federated sites wisely will protect the correct and fair
+operation of your site.
+
+Federating would result in a new range of security issues, since the
+other site's API would handle how data is created rather than your
+site's.
+
+Here are some data manipulations that would affect your site:
+- Post-dating the creation time would artificially boost posts.
+- Sending you database entries without marking the '@' + API_URL after
+  the id would hide the entry's origin and federate you with sites you
+  didn't intend (your site would unknowingly store it as
+  `uid + '@' + federatedSiteAPIURL` as long as the uid was not already
+  present in your database [The mongoose unique setting hinders this
+  unless they change the uid]).
+- The other site could change the privacy level of posts, or place
+  private user profile data in posts or other incorrect collections that
+  the feature would recieve, process, and filter as if from that
+  collection instead of the User collection.
+- The site could manipulate flag count or self-flagging.
+- They could send you thumbnails of an arbitrary size.
+
 
 ## References
 - BezKoder. (2019a, October 19). Node.js + MongoDB: User authentication & authorization with JWT. *BezKoder*. https://bezkoder.com/node-js-mongodb-auth-jwt/

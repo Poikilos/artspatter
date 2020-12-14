@@ -18,13 +18,62 @@ const User = db.user;
 const Post = db.post;
 
 exports.getPublicPosts = (req, res) => {
-  collection.find(query).stream()
+
+  // console.log("* req: ", req);
+  console.log("* req.body: ", req.body);
+  // console.log("* req.query: ", req.query); // only for GET
+  let pageNumber = (req.body.pageNumber === null) ? 0 : parseInt(req.body.pageNumber);
+  if ((pageNumber === NaN) || (pageNumber === Infinity)) {
+    pageNumber = 0;
+  } 
+  let lastDate = new Date();
+  lastDate.setDate(lastDate.getDate() - pageNumber);
+  let firstDate = new Date();
+  firstDate.setDate(firstDate.getDate() - (pageNumber + 1));
+  console.log("  - page: ", pageNumber);
+  console.log("  - date range: ", firstDate, "to", lastDate);
+
+  /*
+  const query = {
+    cid: req.body.cid,
+  };
+  Post.find(query).lean().exec(function (err, posts) {
+    return res.end(JSON.stringify(posts));
+  });
+  */ 
+  // (UNUSED) query builder (See Mongoose docs:
+  // https://mongoosejs.com/docs/queries.html)
+  // "Mongoose queries are not promises. They have a .then()
+  // function for co and async/await as a convenience. However,
+  // unlike promises, calling a query's .then() can execute the
+  // query multiple times."
+  // 
+  //
+  const query = {
+    "c": {"$gte": firstDate, "$lte": lastDate},
+  };
+  console.log("  - Mongoose query: ", query);
+  // For date range see <https://dev.to/itz_giddy/how-to-query-
+  // documents-in-mongodb-that-fall-within-a-specified-date-
+  // range-using-mongoose-and-node-524a>.
+  
+  Post.find(query).lean().exec(function (err, posts) {
+    console.log(`  - sending ${posts.length} post(s)`)
+    return res.end(JSON.stringify({
+      posts: posts,
+    }));
+  });
+  
+    /*
+
+  Post.find(query).stream()
   .on('data', function(doc){
-    res.json({
-      title: doc.title,
-      message: doc.body,
-      realRelPath: doc.realRelPath, // full size image
-    });
+    console.log(`  - sending`, doc)
+    // don't use send more than once.
+    // send calls write then end.
+    return res.write(JSON.stringify({
+      posts: [doc],
+    }));
   })
   .on('error', function(err){
     res.status(500).send({
@@ -32,8 +81,15 @@ exports.getPublicPosts = (req, res) => {
     });
   })
   .on('end', function(){
-    res.status(200).send("Done.");
+    console.log(`  - done sending posts`)
+    res.status(200).send({
+      message: "done",
+    });
+    // res.status(200).send("Done.");
   });
+    */
+
+  
 };
 // (BezKoder, 2019a)
 // formerly  = (req, res) => {
