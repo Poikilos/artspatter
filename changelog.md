@@ -1,8 +1,30 @@
 # Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [git] - 2020-12-23
+### Added
+- (readme and contributing) Document the process of installing and
+  running.
+
+### Changed
+- Switch to yarn.
+  - Improve related documentation.
+
+### Removed
+- Remove npm-related documentation from contributing and readme files.
+
+
+## [git] - 2020-12-22
+### Changed
+- Release 0.9.0
+
 
 ## [git] - 2020-12-13
 ### Added
 - store c time (creation Date)
+
 
 ## [git] - 2020-12-12
 ### Added
@@ -78,7 +100,7 @@ Create a logo.
 - (frontend) errorLeaf function (and reporting module)
   - encapsulate error message formatting code.
 - (backend) Create scripts to clear the database.
-- (backend) Create functions to load initial database entries to make site usable. 
+- (backend) Create functions to load initial database entries to make site usable.
 
 ### Fixed
 - (frontend) Fix error reporting (React will not accept an error object
@@ -153,7 +175,7 @@ Create a logo.
 
 ## [git] - 2020-11-19
 ### Changed
-- Rename  Ballot ~~Reaction~~ 
+- Rename  Ballot ~~Reaction~~
 
 
 ## [git] - 2020-11-17
@@ -173,7 +195,7 @@ Create a logo.
 
 ## [git] - 2020-11-11
 ### Fixed
-- Change "yarn" to "npm" in the concurrently command in package.json. 
+- Change "yarn" to "npm" in the concurrently command in package.json.
   RESOLVES: Yarn is installed, but running it through npx produces an
   error: See `screenshots/2020-11-11_npx_yarn--error.txt`.
 - Change "DB = ‘mongodb://<USER\>:<PASSWORD\>@ds039950.mlab.com:39950/todo’"

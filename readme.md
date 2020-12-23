@@ -8,9 +8,46 @@ Comments in the code marked "(future)" are not for the 8-week project,
 but are being considered for future versions.
 
 
+## Requires
+- mongodb
+  - Fedora: See
+    <https://fedoramagazine.org/how-to-get-mongodb-server-on-fedora/>
+  - Enable and run:
+    - `sudo systemctl enable mongod --now`
+  - Verify:
+    - `sudo systemctl status mongod`
+    - `mongo` is the command to run the mongo shell, which is another
+      way to verify it is working, but you must be running the `mongod`
+      service first.
+
+
+## Installing
+### GNU+Linux systems
+- Install, enable and run MongoDB (See "Requires").
+- Install git and dependencies:
+  - Fedora: `sudo dnf install git nodejs yarn`
+  - Debian/Ubuntu: `sudo apt-get update && sudo apt-get install git nodejs yarn`
+- Get the repo: `git clone https://github.com/poikilos/artspatter`
+- Get the project-specific dependencies:
+```
+cd artspatter && yarn
+cd client && yarn
+```
+- Run: proceed to "Usage"
+
+## Usage
+### GNU+Linux systems
+- Install and start MongoDB, and then install ArtSpatter
+  (see "Installing").
+- In a terminal, cd to the root of the repo and run `yarn start-watch`
+  - run it as a service usually though.
+- Next, you must build and run the react client.
+
+To run the test environment without building the react client, see
+contributing.md.
+
+
 ## Configuration
-(These steps are only necessary if downloaded from git--These pieces are
-included in the workspace.)
 
 - Create your config/auth.config.js similar to:
 ```JavaScript
@@ -27,14 +64,14 @@ module.exports = {
 }
 ```
 - Create your `client/.env` similar to defaults below--PORT default
-  comes from "npm start" internally which uses the PORT environment 
-  variable (API_URL's port must match API_PORT in `.env`):
+  comes from `yarn start` internally which uses the PORT environment
+  variable (API_URL's port must match API_PORT in the client one):
 ```
-PORT=3000
-API_URL=http://localhost:5000
+PORT = 3000
+API_URL = http://localhost:5000
 ```
-- Create your `.env` similar to the defaults below (CLIENT_ORIGIN must
-  match PORT in client/.env):
+- Create your `.env` similar to the defaults below (The CLIENT_ORIGIN's
+  port must match PORT in the server one):
 ```
 API_PORT = 5000
 CLIENT_ORIGIN = http://localhost:3000
@@ -62,6 +99,14 @@ Federated sites don't necessarily run by the same rules as your site.
 Choosing federated sites wisely will protect the correct and fair
 operation of your site.
 
+Therefore, only federate with sites you trust. The following exploits
+and likely more can result from federating with a server that wants to
+do harm. There is no way around this. There may be ways to mitigate
+some issues, but likely not for most or all of these issues and similar
+ones. ArtSpatter can only provide code, and you are responsible for the
+code on your own server. However, neither you nor ArtSpatter has any
+control over the code running on another server.
+
 Federating would result in a new range of security issues, since the
 other site's API would handle how data is created rather than your
 site's.
@@ -83,8 +128,15 @@ Here are some data manipulations that would affect your site:
 
 
 ## References
-- BezKoder. (2019a, October 19). Node.js + MongoDB: User authentication & authorization with JWT. *BezKoder*. https://bezkoder.com/node-js-mongodb-auth-jwt/
-- BezKoder. (2019b, October 19). React JWT authentication (Without Redux) example. *BezKoder*. https://bezkoder.com/react-jwt-auth/
-- Drkušić, E. (2016, March 17). *Denormalization: When, why, and how*. Vertabelo Data Modeler. https://vertabelo.com/blog/denormalization-when-why-and-how/
-- *Mongoose relationships tutorial*. (n.d.). Vegibit. https://vegibit.com/mongoose-relationships-tutorial/
-- *Mongoose v5.10.15: SchemaTypes*. (n.d.). Mongoose. https://mongoosejs.com/docs/schematypes.html
+- BezKoder. (2019a, October 19). Node.js + MongoDB: User authentication
+  & authorization with JWT. *BezKoder*.
+  https://bezkoder.com/node-js-mongodb-auth-jwt/
+- BezKoder. (2019b, October 19). React JWT authentication (Without
+  Redux) example. *BezKoder*. https://bezkoder.com/react-jwt-auth/
+- Drkušić, E. (2016, March 17). *Denormalization: When, why, and how*.
+  Vertabelo Data Modeler.
+  https://vertabelo.com/blog/denormalization-when-why-and-how/
+- *Mongoose relationships tutorial*. (n.d.). Vegibit.
+  https://vegibit.com/mongoose-relationships-tutorial/
+- *Mongoose v5.10.15: SchemaTypes*. (n.d.). Mongoose.
+  https://mongoosejs.com/docs/schematypes.html

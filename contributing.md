@@ -7,6 +7,12 @@ In MongoDB, collections operate similarly to tables.
 Mongoose operates MongoDB similarly to a relational database.
 
 
+## Running without building
+- In a terminal, run `cd client && yarn start`
+  - Run it as a service usually though. For a production environment,
+    build the React app instead.
+
+
 ## Symbols
 (Use the fontawesome react component aka `fortawesome/*`. See
 <https://fontawesome.com/how-to-use/on-the-web/using-with/react>):
@@ -73,8 +79,8 @@ ReactDOM.render(element, document.body)
 ### Pro-only
 (code to avoid with the free version)
 
-NOTE: solid, light, regular, and duotone are pro-only: 
-pro-solid-svg-icons, pro-regular-svg-icons, pro-light-svg-icons, 
+NOTE: solid, light, regular, and duotone are pro-only:
+pro-solid-svg-icons, pro-regular-svg-icons, pro-light-svg-icons,
 
 pro-duotone-svg-icons
 ```JSX
@@ -218,9 +224,9 @@ The software must initialize collections in this order
 ## Tailwind
 Tailwind generates some of the css, so:
 
-> Don’t change tailwind.output.css since your changes will be wiped out 
-> the next time you start up the dev server or run a production build. 
-> Instead, put changes in src/tailwind.css and restart the server/re-run 
+> Don’t change tailwind.output.css since your changes will be wiped out
+> the next time you start up the dev server or run a production build.
+> Instead, put changes in src/tailwind.css and restart the server/re-run
 > the build.
 
 -<https://daveceddia.com/tailwind-create-react-app/>
@@ -229,10 +235,9 @@ Tailwind generates some of the css, so:
 ## Using VSCode
 - Open the server.code-workspace
 - If you have changed the PORT setting (the React frontend web
-  interface port as set in client/.env), open .vscode/launch.json and 
+  interface port as set in client/.env), open .vscode/launch.json and
   change the port number in the URL. Also change the port number in the
   proxy URL in package.json.
-- In the Run menu, choose "npm start" 
 
 
 ## WIP
@@ -245,8 +250,3 @@ Tailwind generates some of the css, so:
     - It will need to install the Chrome plugin. It will show it, so push install by it.
     - Then press F5 again
     - You will have to click
-
-- install npm "npm commands for VSCode" by Florian Knopp
-  - find in VSCode: Ctrl+P, ext install npm
-
-
