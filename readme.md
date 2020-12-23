@@ -26,8 +26,26 @@ but are being considered for future versions.
 - Install, enable and run MongoDB (See "Requires").
 - Install git and dependencies:
   - Fedora: `sudo dnf install git nodejs yarn`
-  - Debian/Ubuntu: `sudo apt-get update && sudo apt-get install git nodejs yarn`
-- Get the repo: `git clone https://github.com/poikilos/artspatter`
+  - Debian/Ubuntu: `sudo apt-get update && sudo apt-get install git nodejs`
+    - Says "You may also need development tools to build native addons" so:
+      `sudo apt-get install gcc g++ make`
+    - As of 2020-12-23, Debian 10.7 has node 13.x which is not compatible
+      with the current version of postcss that yarn provides. If you have
+      this problem, you can switch to Node 14 using the NodeSource
+      repository (See
+      <https://linuxize.com/post/how-to-install-node-js-on-debian-10/>:
+    ```
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+```
+    - Run `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
+    - Install yarn as instructed by the setup_14.x output, such as:
+      ```
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+```
+- Get the ArtSpatter source code:
+  `git clone https://github.com/poikilos/artspatter`
 - Get the project-specific dependencies:
 ```
 cd artspatter && yarn
