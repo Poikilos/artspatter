@@ -35,7 +35,12 @@ cd client && yarn
 ```
 - Run: proceed to "Usage"
 
+
 ## Usage
+Note that on Fedora, the Node.js command is `node`, and on Ubuntu it is
+`nodejs` on Ubuntu 18.04 and at least some earlier versions and possibly
+later versions.
+
 ### GNU+Linux systems
 - Install and start MongoDB, and then install ArtSpatter
   (see "Installing").
