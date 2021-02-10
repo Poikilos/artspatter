@@ -7,6 +7,8 @@ for performance (Drkušić, 2016).
 Comments in the code marked "(future)" are not for the 8-week project,
 but are being considered for future versions.
 
+See also `client/readme.md`.
+
 
 ## Requires
 - mongodb
