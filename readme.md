@@ -7,8 +7,9 @@ for performance (Drkušić, 2016).
 Comments in the code marked "(future)" are not for the 8-week project,
 but are being considered for future versions.
 
-See also `client/readme.md`.
-
+This is only the API (server) but contains general information. For
+information specific to the React.js client (the service on the port
+that browsers access), see `client/readme.md`.
 
 ## Requires
 - mongodb
