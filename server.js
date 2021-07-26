@@ -6,14 +6,27 @@ const path = require('path');
 // const routes = require('./routes/api');
 var bcrypt = require("bcryptjs");
 
-const dbConfig = require('./config/db.config');
+var dbConfig = null;
+
+try {
+  dbConfig = require('./config/db.config');
+}
+catch (e) {
+  console.error(e);
+  console.error();
+  console.error('You must first have a proper ./config/db.config.js file. See artspatter/config/db.config.example.js');
+  console.error()
+  console.error();
+  console.error("(ignore errors below)")
+  process.exit(1);
+}
 require('dotenv').config();
 
 const app = express();
 
 var corsOptions = {
   origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
-}; 
+};
 app.use(cors(corsOptions));
 // (BezKoder, 2019a)
 
@@ -306,7 +319,7 @@ function initialCategories(uid) {
 
 function initialVoteTypes() {
   // entries:
-  
+
   VoteType.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       // [active,vtn,v,caption,pln]
