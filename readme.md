@@ -1,10 +1,12 @@
 # ArtSpatter
 Art Community Management System by Jake Gustafson
 
+To report issues, see https://github.com/poikilos/artspatter/issues (Use the search box to see if your issue is listed before adding a new one).
+
 The table models and schemas are in `./models`. Some of them are denormalized
 for performance (Drkušić, 2016).
 
-Comments in the code marked "(future)" are not for the 8-week project,
+Comments in the code marked "(future)" are not from the 8-week project,
 but are being considered for future versions.
 
 This is only the API (server) but contains general information. For
@@ -23,8 +25,8 @@ that browsers access), see `client/readme.md`.
     - `sudo systemctl status mongod`
     - `mongo` is the command to run the mongo shell, which is another
       way to verify it is working, but you must be running the `mongod`
-      service first.
-
+      service first. Run it as the mongodb, otherwise root or some other user may create lock files, socket files or data that will later prevent the service from starting (since the service runs mongod as the mongodb user).
+    - If you have errors, see doc/mongodb-troubleshooting.md
 
 ## Installing
 ### GNU+Linux systems
