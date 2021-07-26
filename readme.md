@@ -15,6 +15,8 @@ that browsers access), see `client/readme.md`.
 - mongodb
   - Fedora: See
     <https://fedoramagazine.org/how-to-get-mongodb-server-on-fedora/>
+  - 18.04 LTS (Bionic Beaver): See
+    <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/>
   - Enable and run:
     - `sudo systemctl enable mongod --now`
   - Verify:
@@ -29,7 +31,11 @@ that browsers access), see `client/readme.md`.
 - Install, enable and run MongoDB (See "Requires").
 - Install git and dependencies:
   - Fedora: `sudo dnf install git nodejs yarn`
-  - Debian/Ubuntu: `sudo apt-get update && sudo apt-get install git nodejs`
+  - Debian 10: The nodejs version is too old (~10) but 12 is required, so:
+    - See <https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-debian-10>
+      and follow the instructions for Node 12.x.
+      - install the latest yarn as per the instructions that the nodesource installer shows.
+  - Debian >10 or Ubuntu: `sudo apt-get update && sudo apt-get install git nodejs`
     - Says "You may also need development tools to build native addons" so:
       `sudo apt-get install gcc g++ make`
     - As of 2020-12-23, Debian 10.7 has node 13.x which is not compatible
