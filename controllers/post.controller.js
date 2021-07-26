@@ -25,7 +25,7 @@ exports.getPublicPosts = (req, res) => {
   let pageNumber = (req.body.pageNumber === null) ? 0 : parseInt(req.body.pageNumber);
   if ((pageNumber === NaN) || (pageNumber === Infinity)) {
     pageNumber = 0;
-  } 
+  }
   let lastDate = new Date();
   lastDate.setDate(lastDate.getDate() - pageNumber);
   let firstDate = new Date();
@@ -40,14 +40,14 @@ exports.getPublicPosts = (req, res) => {
   Post.find(query).lean().exec(function (err, posts) {
     return res.end(JSON.stringify(posts));
   });
-  */ 
+  */
   // (UNUSED) query builder (See Mongoose docs:
   // https://mongoosejs.com/docs/queries.html)
   // "Mongoose queries are not promises. They have a .then()
   // function for co and async/await as a convenience. However,
   // unlike promises, calling a query's .then() can execute the
   // query multiple times."
-  // 
+  //
   //
   const query = {
     "c": {"$gte": firstDate, "$lte": lastDate},
@@ -56,14 +56,19 @@ exports.getPublicPosts = (req, res) => {
   // For date range see <https://dev.to/itz_giddy/how-to-query-
   // documents-in-mongodb-that-fall-within-a-specified-date-
   // range-using-mongoose-and-node-524a>.
-  
+
   Post.find(query).lean().exec(function (err, posts) {
+    if (posts == undefined) {
+      return res.end(JSON.stringify({
+        posts: [],
+      }));
+    }
     console.log(`  - sending ${posts.length} post(s)`)
     return res.end(JSON.stringify({
       posts: posts,
     }));
   });
-  
+
     /*
 
   Post.find(query).stream()
@@ -89,7 +94,7 @@ exports.getPublicPosts = (req, res) => {
   });
     */
 
-  
+
 };
 // (BezKoder, 2019a)
 // formerly  = (req, res) => {
@@ -114,7 +119,7 @@ exports.uploadPost = (req, res) => {
   });
    */
   // const file = req.file; // TODO: (fix?) null for some reason
-  
+
   const file = req.file;
   // console.log('* post req.file: ', req.file);
   // file:
@@ -179,7 +184,7 @@ exports.uploadPost = (req, res) => {
     console.log(`* using thumbRel path: ${thumbRel}`)
     const thumbPath = PUBLIC_DIR + thumbRel;
     let oldThumbPath = uThumbsPath + "/" + util.removeExt(file.filename) + "_thumb.png"
-    
+
     const thisV = req.body.title;
     // res.status(100).send({message: `preparing image...`});
     console.log(`  - preparing thumbPath ${thumbPath} from oldPath ${oldPath}...`)
@@ -206,7 +211,7 @@ exports.uploadPost = (req, res) => {
         fs.unlinkSync(oldPath);
         return;
       }
-      
+
       console.log("  - moving...", files);
       if (files.length < 1) {
         if (fs.existsSync(oldThumbPath)) {
