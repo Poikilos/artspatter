@@ -25,12 +25,12 @@ require('dotenv').config();
 const app = express();
 
 var corsOptions = {
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+  origin: process.env.CLIENT_ORIGIN || 'http://localhost:54445',
 };
 app.use(cors(corsOptions));
 // (BezKoder, 2019a)
 
-const port = process.env.API_PORT || 8085;
+const port = process.env.API_PORT || 56765;
 
 app.use(bodyParser.json());
 

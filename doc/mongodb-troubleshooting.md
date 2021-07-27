@@ -114,4 +114,4 @@ In the first terminal, press Ctrl+C to stop mongod 4.4.
 
 You can see that the process is the same for every upgrade except for the value of "setFeatureCompatibilityVersion". Continue until you get to the version you want. MongoDB server version 5.0.x can be next, since it accepts a 4.4 database (tested on 5.0.1).
 
-Downgrading to libcurl3 probably removed the packaged version of mongod. Go back to the readme and follow the steps to install a recent mongodb from the mongodb.org repository and to enable and start it.
+Downgrading to libcurl3 (if you had to go back to that for an earlier version of mongodb above) probably removed the packaged mongodb-org. Go back to the readme and follow the steps to install a recent mongodb-org from the mongodb.org repository and to enable and start it.

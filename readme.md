@@ -19,6 +19,18 @@ that browsers access), see `client/readme.md`.
     <https://fedoramagazine.org/how-to-get-mongodb-server-on-fedora/>
   - 18.04 LTS (Bionic Beaver): See
     <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/>
+  - Debian 10 (Buster):
+    - Add the mongodb.org repo for a recent version rather than the version packaged with Debian:
+      <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/> Continue those instructions in the following steps below.
+    - `sudo apt-get install -y mongodb-org`
+    - Set permissions. If the paths in `/etc/mongod.conf` differ from the defaults, change the paths below to match the conf file.
+```
+
+sudo mkdir -p /var/lib/mongodb
+sudo mkdir -p /var/log/mongodb
+sudo chown -R mongodb:mongodb /var/lib/mongodb
+sudo chown -R mongodb:mongodb /var/log/mongodb
+```
   - Enable and run:
     - `sudo systemctl enable mongod --now`
   - Verify:
@@ -64,7 +76,6 @@ cd client && yarn
 ```
 - Run: proceed to "Usage"
 
-
 ## Usage
 Note that on Fedora, the Node.js command is `node`, and on Ubuntu it is
 `nodejs` on Ubuntu 18.04 and at least some earlier versions and possibly
@@ -80,6 +91,9 @@ later versions.
 To run the test environment without building the react client, see
 contributing.md.
 
+#### Test
+Go to http://localhost:56765/api/show/all (replace localhost with the address).
+It should say something like "Welcome to the a new ArtSpatter website."
 
 ## Configuration
 
@@ -99,16 +113,16 @@ module.exports = {
 ```
 - Create your `client/.env` similar to defaults below--PORT default
   comes from `yarn start` internally which uses the PORT environment
-  variable (API_URL's port must match API_PORT in the client one):
+  variable (`API_URL`'s port must match `API_PORT` in the client one):
 ```
-PORT = 3000
-API_URL = http://localhost:5000
+PORT = 54445
+API_URL = http://localhost:56765
 ```
 - Create your `.env` similar to the defaults below (The CLIENT_ORIGIN's
   port must match PORT in the server one):
 ```
-API_PORT = 5000
-CLIENT_ORIGIN = http://localhost:3000
+API_PORT = 56765
+CLIENT_ORIGIN = http://localhost:54445
 ```
 
 
@@ -147,7 +161,7 @@ site's.
 
 Here are some data manipulations that would affect your site:
 - Post-dating the creation time would artificially boost posts.
-- Sending you database entries without marking the '@' + API_URL after
+- Sending you database entries without marking the `'@' + API_URL` after
   the id would hide the entry's origin and federate you with sites you
   didn't intend (your site would unknowingly store it as
   `uid + '@' + federatedSiteAPIURL` as long as the uid was not already

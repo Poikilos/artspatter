@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 
+## [git] - 2021-07-26
+### Changed
+- Change the default API_PORT (set in .env) from 8085 (formerly 5000) to 56765.
+- Change the client origin from http://localhost:3000 to http://localhost:54445
+
+
 ## [git] - 2020-12-23
 ### Added
 - (readme and contributing) Document the process of installing and
