@@ -147,7 +147,7 @@ Certificate setup
 ```
 artspatter.example.com:
   proxies:
-    /: localhost:56765
+    /: http://localhost:56765
 ```
 - Add a mailbox or alias such as support@example.com
 - Add a mailbox or alias such as support@artspatter.example.com
