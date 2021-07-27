@@ -149,9 +149,14 @@ artspatter.example.com:
   proxies:
     /: http://localhost:56765
 ```
+  - Note that you must put `http` (https will be handled automatically).
 - Add a mailbox or alias such as support@example.com
 - Add a mailbox or alias such as support@artspatter.example.com
 - Reload the custom configuration: Go to Web, hit any "Change" button, then "Update".
+  - If going to the subdomain in a browser results in a page not found error:
+    - wait a while and try the step above again.
+    - Run `sudo systemctl reload nginx` if necessary.
+- System, TLS (SSL) Certificates, provision
 
 ## Development
 For how to maintain the code or setup an IDE, see contributing.md.
