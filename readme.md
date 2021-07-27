@@ -126,9 +126,9 @@ CLIENT_ORIGIN = http://localhost:54445
 - If you have a firewall, allow the port:
   - Debian 10: `sudo ufw allow 56765/tcp`
 
-Next, complete DNS configuration as follows.
+Next, complete DNS configuration in the following section.
 
-For Mail-in-a-box:
+### Mail-in-a-box
 - Set namecheap or other DNS provider to Custom DNS to allow your server to manage DNS.
 - Go to box.example.com/admin, replacing box.example.com with your Mail-in-a-box (MIAB) subdomain.
   - Log in as the MIAB admin.
