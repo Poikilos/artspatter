@@ -84,6 +84,7 @@ later versions.
 ### GNU+Linux systems
 - Install and start MongoDB, and then install ArtSpatter
   (see "Installing").
+- Complete the steps in the "Configuration" section below.
 - In a terminal, cd to the root of the repo and run `yarn start-watch`
   - run it as a service usually though.
 - Next, you must build and run the react client.
@@ -91,11 +92,12 @@ later versions.
 To run the test environment without building the react client, see
 contributing.md.
 
-#### Test
-Go to http://localhost:56765/api/show/all (replace localhost with the address).
+Go to http://example.com:56765/api/show/all (replace example.com with the address).
 It should say something like "Welcome to the a new ArtSpatter website."
+- If using the IP address but not the address works, ensure you've completed the DNS Setup in the "API Configuration" section first.
+- If changing http to https results in a certificate error, ensure you've completed the certificate setup in the "API Configuration" section first.
 
-## Configuration
+## API Configuration
 
 - Create your config/auth.config.js similar to:
 ```JavaScript
@@ -111,23 +113,48 @@ module.exports = {
   DB: 'artspatter',
 }
 ```
-- Create your `client/.env` similar to defaults below--PORT default
-  comes from `yarn start` internally which uses the PORT environment
-  variable (`API_URL`'s port must match `API_PORT` in the client one):
-```
-PORT = 54445
-API_URL = http://localhost:56765
-```
+
+Next, complete the "Client Configuration" section of [asclient](https://github.com/poikilos/asclient).
+
 - Create your `.env` similar to the defaults below (The CLIENT_ORIGIN's
-  port must match PORT in the server one):
+  port must match PORT in the server one. However, `CLIENT_ORIGIN` is being deprecated
+  to support a public API--See [https:/]() for the status of this issue):
 ```
 API_PORT = 56765
 CLIENT_ORIGIN = http://localhost:54445
 ```
+- If you have a firewall, allow the port:
+  - Debian 10: `sudo ufw allow 56765/tcp`
 
+Next, complete DNS configuration as follows.
+
+For Mail-in-a-box:
+- Set namecheap or other DNS provider to Custom DNS to allow your server to manage DNS.
+- Go to box.example.com/admin, replacing box.example.com with your Mail-in-a-box (MIAB) subdomain.
+  - Log in as the MIAB admin.
+  - Go to System, Custom DNS to add a new record.
+  - Choose the domain from the list.
+  - In the subdomain box type something like "_artspatter._tcp"
+  - For "Type" choose SRV (service record)
+  -  such as (including the trailing '.'):
+    `10 10 56765 artspatter.example.com.` except:
+    - Change the "api" part to your subdomain you typed in the subdomain box above it.
+    - Change the "example.com" part to your domain you chose from the list.
+
+Certificate setup
+(For MIAB, adding the domain to its management system as follows will do the certificate automatically):
+- Make a /home/user-data/www/custom.yaml such as:
+```
+artspatter.example.com:
+  proxies:
+    /: localhost:56765
+```
+- Add a mailbox or alias such as support@example.com
+- Add a mailbox or alias such as support@artspatter.example.com
+- Reload the custom configuration: Go to Web, hit any "Change" button, then "Update".
 
 ## Development
-For how to maintain the code, see contributing.md.
+For how to maintain the code or setup an IDE, see contributing.md.
 
 
 ## Citation Style

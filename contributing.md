@@ -6,6 +6,15 @@ In MongoDB, collections operate similarly to tables.
 
 Mongoose operates MongoDB similarly to a relational database.
 
+## IDE Setup
+### Atom
+#### Install plugins
+Go to Edit, Preferences, Settings, Install, then install the following.
+- react
+- prettier-atom
+  - click "Yes" to install the "linter" dependency
+  - Click the "Settings" gear button then check "ESLint Integration"
+    - You don't have to install prettier-esline: The prettier-eslint plugin says it is deprecated and do this instead of using prettier-eslint. prettier-eslint also says, "This plugin has been merged with the official prettier-atom plugin."
 
 ## Running without building
 - In a terminal, run `cd client && yarn start`
