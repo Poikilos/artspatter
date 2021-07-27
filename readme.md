@@ -131,15 +131,7 @@ Next, complete DNS configuration in the following section.
 ### Mail-in-a-box
 - Set namecheap or other DNS provider to Custom DNS to allow your server to manage DNS.
 - Go to box.example.com/admin, replacing box.example.com with your Mail-in-a-box (MIAB) subdomain.
-  - Log in as the MIAB admin.
-  - Go to System, Custom DNS to add a new record.
-  - Choose the domain from the list.
-  - In the subdomain box type something like "_artspatter._tcp"
-  - For "Type" choose SRV (service record)
-  -  such as (including the trailing '.'):
-    `10 10 56765 artspatter.example.com.` except:
-    - Change the "api" part to your subdomain you typed in the subdomain box above it.
-    - Change the "example.com" part to your domain you chose from the list.
+- Log in as the MIAB admin.
 
 Certificate setup
 (For MIAB, adding the domain to its management system as follows will do the certificate automatically):
