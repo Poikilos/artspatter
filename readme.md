@@ -129,6 +129,7 @@ CLIENT_ORIGIN = http://localhost:54445
 Next, complete DNS configuration in the following section.
 
 ### Mail-in-a-box
+(A generalized version of these instructions is now at [Make a subdomain point to a port such as for a custom service serving http or https](https://discourse.mailinabox.email/t/make-a-subdomain-point-to-a-port-such-as-for-a-custom-service-serving-http-or-https/8279))
 - Set namecheap or other DNS provider to Custom DNS to allow your server to manage DNS.
 - Go to box.example.com/admin, replacing box.example.com with your Mail-in-a-box (MIAB) subdomain.
 - Log in as the MIAB admin.
