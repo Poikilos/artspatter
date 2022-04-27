@@ -13,6 +13,13 @@ This is only the API (server) but contains general information. For
 information specific to the React.js client (the service on the port
 that browsers access), see `client/readme.md`.
 
+## Issues
+To view existing issues and see if the issue is already known before reporting an issue, see <https://github.com/poikilos/artspatter/issues>
+
+For detected security issues see <https://github.com/poikilos/artspatter/security/dependabot>.
+- Some of these issues may be invalid as of the last "yarn update" in git history.
+
+
 ## Requires
 - mongodb
   - Fedora: See
